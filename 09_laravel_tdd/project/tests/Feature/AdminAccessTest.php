@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AdminAccessTest extends TestCase
@@ -29,7 +28,16 @@ class AdminAccessTest extends TestCase
     {
         $response = $this
             ->actingAs($this->admin)
-            ->get(route('admin'));
+            ->get("admin");
+
+        $response->assertOk();
+    }
+
+    public function test_admin_access_events(): void
+    {
+        $response = $this
+            ->actingAs($this->admin)
+            ->get("admin/events");
 
         $response->assertOk();
     }
@@ -38,7 +46,7 @@ class AdminAccessTest extends TestCase
     {
         $response = $this
             ->actingAs($this->admin)
-            ->get(route('admin.event.list'));
+            ->get("admin/events/list");
 
         $response->assertOk();
     }
@@ -47,7 +55,7 @@ class AdminAccessTest extends TestCase
     {
         $response = $this
             ->actingAs($this->admin)
-            ->get(route('admin.event.crete'));
+            ->get("admin/events/crete");
 
         $response->assertOk();
     }
@@ -56,7 +64,7 @@ class AdminAccessTest extends TestCase
     {
         $response = $this
             ->actingAs($this->admin)
-            ->get(route('admin.notification'));
+            ->get("admin/notifications");
 
         $response->assertOk();
     }
@@ -65,7 +73,7 @@ class AdminAccessTest extends TestCase
     {
         $response = $this
             ->actingAs($this->admin)
-            ->get(route('admin.reports'));
+            ->get("admin/reports");
 
         $response->assertOk();
     }
@@ -74,44 +82,53 @@ class AdminAccessTest extends TestCase
     {
         $response = $this
             ->actingAs($this->user)
-            ->get(route('admin'));
+            ->get("admin");
 
-        $response->assertNotFound();
+        $response->assertForbidden();
+    }
+
+    public function test_user_access_admin_events(): void
+    {
+        $response = $this
+            ->actingAs($this->user)
+            ->get("admin/events");
+
+        $response->assertForbidden();
     }
 
     public function test_user_access_admin_event_list(): void
     {
         $response = $this
             ->actingAs($this->user)
-            ->get(route('admin.event.list'));
+            ->get("admin/events/list");
 
-        $response->assertNotFound();
+        $response->assertForbidden();
     }
 
     public function test_user_access_admin_event_create(): void
     {
         $response = $this
             ->actingAs($this->user)
-            ->get(route('admin.event.crete'));
+            ->get("admin/events/crete");
 
-        $response->assertNotFound();
+        $response->assertForbidden();
     }
 
     public function test_user_access_admin_notification(): void
     {
         $response = $this
             ->actingAs($this->user)
-            ->get(route('admin.notification'));
+            ->get("admin/notifications");
 
-        $response->assertNotFound();
+        $response->assertForbidden();
     }
 
     public function test_user_access_admin_reports(): void
     {
         $response = $this
             ->actingAs($this->user)
-            ->get(route('admin.reports'));
+            ->get("admin/reports");
 
-        $response->assertNotFound();
+        $response->assertForbidden();
     }
 }

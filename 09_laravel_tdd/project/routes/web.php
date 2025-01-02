@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\BookController;
 use App\Http\Middleware\AdminOnly;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,14 +25,15 @@ Route::middleware('auth')->group(function () {
     Route::resource('books', BookController::class);
 });
 
-Route::get('admin', function () {
-    return view('adminWelcome');
-})->middleware(AdminOnly::class);
+Route::middleware([AdminOnly::class])->group(function () {
+    Route::get('admin', function () {
+        return view('adminWelcome');
+    })->middleware(AdminOnly::class);
 
-Route::resource('admin/event', App\Htp\Controllers\Admin\EventController::class)->middleware(AdminOnly::class);
-Route::resource('admin/notification', App\Htp\Controllers\Admin\NotificationController::class)->middleware(AdminOnly::class);
-Route::resource('admin/event/reports', App\Htp\Controllers\Admin\ReportController::class)->middleware(AdminOnly::class);
-
+    Route::resource('admin/events', EventController::class)->middleware(AdminOnly::class);
+    Route::resource('admin/notifications', NotificationController::class)->middleware(AdminOnly::class);
+    Route::resource('admin/reports', ReportController::class)->middleware(AdminOnly::class);
+});
 
 require __DIR__ . '/auth.php';
 

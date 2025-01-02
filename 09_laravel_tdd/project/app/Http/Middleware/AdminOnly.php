@@ -15,11 +15,11 @@ class AdminOnly
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()?->name != "Admin" ||
-            auth()->user()?->name != "Admin1" ||
-            auth()->user()?->name != "Admin2") {
+        if (auth()->user()?->name !== "Admin" &&
+            auth()->user()?->name !== "Admin1" &&
+            auth()->user()?->name !== "Admin2") {
 
-            abort(Response::HTTP_NOT_FOUND);
+            abort(Response::HTTP_FORBIDDEN);
         }
 
         return $next($request);
