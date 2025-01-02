@@ -29,7 +29,7 @@ class AdminAccessTest extends TestCase
     {
         $response = $this
             ->actingAs($this->admin)
-            ->get(route('admin.event.list'));
+            ->get(route('admin'));
 
         $response->assertOk();
     }
@@ -74,7 +74,7 @@ class AdminAccessTest extends TestCase
     {
         $response = $this
             ->actingAs($this->user)
-            ->get(route('admin.dashboard'));
+            ->get(route('admin'));
 
         $response->assertNotFound();
     }
