@@ -35,6 +35,15 @@ class AcceptanceTester extends \Codeception\Actor
         $this->waitForNextPage(fn () => $this->click('Log in'));
     }
 
+    public function logInAdmin(): void
+    {
+        $this->seeCurrentUrlEquals('/login');
+        $this->fillField('name', 'Admin');
+        $this->fillField('email', 'admin.doe@gmail.com');
+        $this->fillField('password', 'secret');
+        $this->waitForNextPage(fn () => $this->click('Log in'));
+    }
+
     public function waitForNextPage(callable $action): void
     {
         // @phpstan-ignore function.alreadyNarrowedType
