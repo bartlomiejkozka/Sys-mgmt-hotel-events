@@ -2,48 +2,49 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
+    /** @use HasFactory<UserFactory> */
     use HasFactory;
-
-    protected $fillable = ['name', 'email', 'password', 'role'];
-
-    // Role użytkowników (można dodać enumerację lub stałe)
-    const ROLE_ADMIN = 'admin';
-    const ROLE_GUEST = 'guest';
+    use Notifiable;
 
     /**
-     * Relacja z rezerwacjami (Gość może mieć wiele rezerwacji)
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
      */
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 
     /**
-     * Relacja z listą oczekujących
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
      */
-    public function waitingList()
-    {
-        return $this->hasMany(WaitingList::class);
-    }
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     /**
-     * sprawdzić czy użytkownik to admin
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
      */
-    public function isAdmin()
+    protected function casts(): array
     {
-        return $this->role === self::ROLE_ADMIN;
-    }
-
-    /**
-     * sprawdzić czy użytkownik to gość
-     */
-    public function isGuest()
-    {
-        return $this->role === self::ROLE_GUEST;
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }
