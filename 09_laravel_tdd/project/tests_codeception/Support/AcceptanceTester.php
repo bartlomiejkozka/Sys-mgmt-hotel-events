@@ -38,9 +38,8 @@ class AcceptanceTester extends \Codeception\Actor
     public function logInAdmin(): void
     {
         $this->seeCurrentUrlEquals('/login');
-        $this->fillField('name', 'Admin');
-        $this->fillField('email', 'admin.doe@gmail.com');
-        $this->fillField('password', 'secret');
+        $this->fillField('email', 'admin123@gmail.com');
+        $this->fillField('password', 'secretAdmin');
         $this->waitForNextPage(fn () => $this->click('Log in'));
     }
 
