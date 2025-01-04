@@ -4,34 +4,33 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
+use Database\Factories\EventFactory;
 
 class Event extends Model
 {
+    /** @use HasFactory<EventFactory> */
     use HasFactory;
-
-    protected $fillable = ['name', 'description', 'location', 'event_date', 'max_guests'];
+    use Notifiable;
 
     /**
-     * Relacja z rezerwacjami (wydarzenie może mieć wiele rezerwacji)
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
      */
-    public function reservations()
+    protected $fillable = [
+        'name',
+        'description',
+        'location',
+        'event_date',
+        'event_time',
+        'max_participants',
+    ];
+
+    public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }
 
-    /**
-     * Relacja z listą oczekujących
-     */
-    public function waitingList()
-    {
-        return $this->hasMany(WaitingList::class);
-    }
-
-    /**
-     * czy wydarzenie jest pełne
-     */
-    public function isFull()
-    {
-        return $this->reservations()->count() >= $this->max_guests;
-    }
 }

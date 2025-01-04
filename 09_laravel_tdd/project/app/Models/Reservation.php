@@ -2,41 +2,35 @@
 
 namespace App\Models;
 
+use Database\Factories\ReservationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Notifications\Notifiable;
 
 class Reservation extends Model
 {
+    /** @use HasFactory<ReservationFactory> */
     use HasFactory;
-
-    protected $fillable = ['user_id', 'event_id', 'status'];
-
-    // Statusy rezerwacji
-    const STATUS_CONFIRMED = 'confirmed';
-    const STATUS_CANCELLED = 'cancelled';
-    const STATUS_PENDING = 'pending';
+    use Notifiable;
 
     /**
-     * Relacja z użytkownikiem (Gość, który zarezerwował miejsce)
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
      */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = [
+        'user_id',
+        'event_id',
+    ];
 
-    /**
-     * Relacja z wydarzeniem (wydarzenie, na które zarezerwowano miejsce)
-     */
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
 
-    /**
-     * czy rezerwacja jest aktywna
-     */
-    public function isActive()
+    public function user(): BelongsTo
     {
-        return $this->status === self::STATUS_CONFIRMED;
+        return $this->belongsTo(User::class);
     }
 }
