@@ -53,6 +53,9 @@ class User extends Model
         return $this->role === self::ROLE_GUEST;
     }
 
+    /**
+     * @return HasMany<Reservation, $this>
+     */
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);

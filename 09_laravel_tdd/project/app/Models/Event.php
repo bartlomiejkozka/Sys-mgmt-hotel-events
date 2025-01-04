@@ -28,6 +28,10 @@ class Event extends Model
         'max_participants',
     ];
 
+
+    /**
+     * @return HasMany<Reservation, $this>
+     */
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
