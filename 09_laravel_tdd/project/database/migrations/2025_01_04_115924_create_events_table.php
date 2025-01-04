@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('location');
             $table->dateTime('event_date');
-            $table->dateTime('event_time');
+            $table->time('event_time');
+            $table->integer('max_participants');
             $table->timestamps();
         });
     }
