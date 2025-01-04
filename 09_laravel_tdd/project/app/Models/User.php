@@ -49,6 +49,9 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * @return HasMany<Reservation, $this>
+     */
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
