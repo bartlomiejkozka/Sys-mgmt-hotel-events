@@ -5,12 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\BookController;
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 });
 
 Route::get('/events', function () {
