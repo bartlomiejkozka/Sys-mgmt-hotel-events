@@ -9,8 +9,33 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 
+
 Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('/welcome', function () {
     return view('welcome');
+});
+
+Route::get('/events', function () {
+    return view('events');
+});
+
+Route::get('/form', function () {
+    return view('form');
+});
+
+Route::get('/myevents', function () {
+    return view('myevents');
+});
+
+Route::get('/notifications', function () {
+    return view('notifications');
+});
+
+Route::get('/opinions', function () {
+    return view('opinions');
 });
 
 Route::get('/dashboard', function () {
