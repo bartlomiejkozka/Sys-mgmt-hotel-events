@@ -9,7 +9,8 @@
 </head>
 <body>
 <x-Menu/>
-    <div class="max-w-md rounded overflow-hidden border border-gray-200">
+<div class="flex flex-col items-center">
+    <div class="max-w-lg rounded overflow-hidden border border-gray-200">
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">My event 1</div>
             <p class="text-gray-700 text-base">
@@ -22,7 +23,7 @@
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
         </div>
     </div>
-    <div class="max-w-md rounded overflow-hidden border border-gray-200">
+    <div class="max-w-lg rounded overflow-hidden border border-gray-200">
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">My event 2</div>
             <p class="text-gray-700 text-base">
@@ -35,7 +36,7 @@
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
         </div>
     </div>
-    <div class="max-w-md rounded overflow-hidden border border-gray-200">
+    <div class="max-w-lg rounded overflow-hidden border border-gray-200">
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">My event 3</div>
             <p class="text-gray-700 text-base">
@@ -48,5 +49,6 @@
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
         </div>
     </div>
+</div>
 </body>
 </html>
