@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
-            $table->text('content');
-            $table->integer('rating')->unsigned()->check('rating >= 1 AND rating <= 5');
+            $table->text('comment');
+            $table->integer('rating')->unsigned();
             $table->timestamps();
         });
+
     }
 
 
