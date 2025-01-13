@@ -19,11 +19,14 @@
                 </div>
             </div>
 
+            @if(auth()->user()->name != "Admin" && auth()->user()->name != "Admin1" && auth()->user()->name != "Admin2")
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+            @endif
+
         </div>
     </div>
 </x-app-layout>
