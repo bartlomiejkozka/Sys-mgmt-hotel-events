@@ -8,6 +8,7 @@ use App\Http\Middleware\AdminOnly;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AdminController;
 
 
 
@@ -52,10 +53,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware([AdminOnly::class])->group(function () {
-    Route::get('admin', function () {
-        return view('adminWelcome');
-    })->middleware(AdminOnly::class);
-
+    Route::resource('admin', AdminController::class)->middleware(AdminOnly::class);
     Route::get('admin/profile', [ProfileController::class, 'edit'])->middleware(AdminOnly::class);
     Route::patch('admin/profile/update', [ProfileController::class, 'update'])->middleware(AdminOnly::class);
     Route::resource('admin/events', EventController::class)->middleware(AdminOnly::class);
