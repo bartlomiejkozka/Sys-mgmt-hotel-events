@@ -10,6 +10,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 
 
+
 Route::get('/', function () {
     return view('home');
 });
