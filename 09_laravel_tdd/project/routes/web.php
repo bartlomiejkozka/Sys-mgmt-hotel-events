@@ -55,8 +55,8 @@ Route::middleware([AdminOnly::class])->group(function () {
         return view('adminWelcome');
     })->middleware(AdminOnly::class);
 
-    Route::get('admin/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('admin/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('admin/profile', [ProfileController::class, 'edit'])->middleware(AdminOnly::class);
+    Route::patch('admin/profile/update', [ProfileController::class, 'update'])->middleware(AdminOnly::class);
     Route::resource('admin/events', EventController::class)->middleware(AdminOnly::class);
     Route::resource('admin/notifications', NotificationController::class)->middleware(AdminOnly::class);
     Route::resource('admin/reports', ReportController::class)->middleware(AdminOnly::class);
