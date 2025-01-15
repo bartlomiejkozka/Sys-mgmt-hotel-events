@@ -6,7 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\BookController;
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 });
 
 Route::get('/dashboard', function () {
