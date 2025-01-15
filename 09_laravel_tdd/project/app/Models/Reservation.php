@@ -14,6 +14,8 @@ class Reservation extends Model
     use HasFactory;
     use Notifiable;
 
+    const STATUS_CONFIRMED = 'confirmed';
+
     /**
      * The attributes that are mass assignable.
      *
