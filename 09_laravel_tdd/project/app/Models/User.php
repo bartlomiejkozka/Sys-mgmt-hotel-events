@@ -60,12 +60,4 @@ class User extends Model
     {
         return $this->hasMany(Reservation::class);
     }
-
-    /**
-     * @return HasMany<Reservation, $this>
-     */
-    public function reservations(): HasMany
-    {
-        return $this->hasMany(Reservation::class);
-    }
 }
