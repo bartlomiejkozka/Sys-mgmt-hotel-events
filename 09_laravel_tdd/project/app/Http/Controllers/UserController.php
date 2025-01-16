@@ -13,15 +13,18 @@ class UserController extends Controller
     // Wyświetlenie wszystkich dostępnych wydarzeń
     public function index()
     {
-        $events = Event::where('event_date', '>=', now())->get();
-        return view('user.events.index', compact('events'));
+        $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
+        return view('form', compact('events'));
     }
-
 
     // Rejestracja na wydarzenie
     public function register(Request $request)
     {
-        // Walidacja danych
+        // Sprawdzamy, czy użytkownik jest zalogowany
+        if (!Auth::check()) {
+            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.']);
+        }
+
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -29,32 +32,22 @@ class UserController extends Controller
             'event_id' => 'required|exists:events,id',  // walidacja event_id
         ]);
 
-        // Znajdź użytkownika po e-mailu lub stwórz nowego
-        $user = User::firstOrCreate(
-            ['email' => $validated['email']],
-            ['name' => $validated['first_name'] . ' ' . $validated['last_name']]
-        );
-
-        // Znajdź wydarzenie po ID
+        // Sprawdzenie, czy wydarzenie istnieje
         $event = Event::find($validated['event_id']);
-
         if (!$event) {
-            return redirect()->back()->withErrors(['event_name' => 'Event not found.']);
+            return redirect()->route('form')->withErrors(['event_id' => 'Event not found.']);
         }
 
-        // Sprawdź, czy wydarzenie jest pełne
-        if ($event->isFull()) {
-            return redirect()->back()->with('message', 'Event is full. You have been added to the waiting list.');
-        }
-
-        // Stwórz rezerwację
+        // Zapisanie użytkownika na wydarzenie
         Reservation::create([
-            'user_id' => $user->id,
-            'event_id' => $event->id,
+            'user_id' => Auth::id(),  // Pobieranie ID zalogowanego użytkownika
+            'event_id' => $validated['event_id'],
         ]);
 
-        return redirect()->back()->with('message', 'Successfully registered for the event!');
+        return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
     }
+
+
 
 
 

@@ -10,7 +10,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 
-
 Route::get('/', function () {
     return view('home');
 });
@@ -19,51 +18,58 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/events', function () {
-    return view('events');
-});
+// Trasa do wydarzeń, widok listy wydarzeń
+Route::get('/events', [UserController::class, 'index'])->name('events.index');
 
-Route::get('/form', function () {
-    return view('form');
-})->name('form');
+// Trasa formularza rejestracji na wydarzenie
+Route::get('/form', [UserController::class, 'index'])->name('form'); // Używamy UserController do pobrania wydarzeń
 
-Route::post('/form', [UserController::class, 'store'])->name('reservations.store');
+Route::post('/reservations', [UserController::class, 'register'])->name('reservations.store');
 
 
-Route::get('/myevents', function () {
-    return view('myevents');
-});
+// Trasa do zapisania rezerwacji na wydarzenie
+Route::post('/form', [UserController::class, 'register'])->name('reservations.store');
 
-Route::get('/notifications', function () {
-    return view('notifications');
-});
+// Trasa do wyświetlania zapisanych wydarzeń
+Route::get('/myevents', [UserController::class, 'myEvents'])->name('myevents');
 
-Route::get('/opinions', function () {
-    return view('opinions');
-});
+// Trasa do powiadomień
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 
+// Trasa do opinii (jeśli masz jakąś logikę na ten temat)
+Route::get('/opinions', [UserController::class, 'opinions'])->name('opinions.index');
+
+// Trasa do dashboardu użytkownika
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Trasy związane z profilem użytkownika
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('books', BookController::class);
+    Route::resource('books', BookController::class); // Trasy do książek
 });
 
+// Trasy admina
 Route::middleware([AdminOnly::class])->group(function () {
     Route::get('admin', function () {
         return view('adminWelcome');
-    })->middleware(AdminOnly::class);
+    });
 
-    Route::resource('admin/events', EventController::class)->middleware(AdminOnly::class);
-    Route::resource('admin/notifications', NotificationController::class)->middleware(AdminOnly::class);
-    Route::resource('admin/reports', ReportController::class)->middleware(AdminOnly::class);
+    // Wydarzenia admina
+    Route::resource('admin/events', EventController::class);
+
+    // Powiadomienia admina
+    Route::resource('admin/notifications', NotificationController::class);
+
+    // Raporty admina
+    Route::resource('admin/reports', ReportController::class);
 });
 
-require __DIR__ . '/auth.php';
-
+// Trasa do komentowania (jeśli masz system komentarzy)
 Route::resource('/comments', CommentController::class);
+
+require __DIR__ . '/auth.php'; // Trasy związane z autentykacją

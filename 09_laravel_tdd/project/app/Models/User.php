@@ -2,59 +2,68 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable; // Dziedziczymy z odpowiedniej klasy
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Authenticatable
 {
-    protected $fillable = ['name', 'email', 'password', 'role'];
-    // Role użytkowników (można dodać enumerację lub stałe)
-    const ROLE_ADMIN = 'admin';
-    const ROLE_GUEST = 'guest';
+    use HasFactory, Notifiable;
+
     /**
-     * Relacja z rezerwacjami (Gość może mieć wiele rezerwacji)
+     * Wypełnialne atrybuty
      */
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
+    protected $fillable = ['name', 'email', 'password', 'role'];
+
     /**
-     * Relacja z listą oczekujących
+     * Ukryte atrybuty w serializacji
      */
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    /**
+     * Atrybuty rzutowane na inne typy
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed', // Hasło jest hashowane automatycznie
+    ];
+
+    // Role użytkowników
+    const ROLE_ADMIN = 'admin';
+    const ROLE_GUEST = 'guest';
+
+    /**
+     * Relacja z rezerwacjami
+     */
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    /**
+     * Relacja z listą oczekujących
+     */
     public function waitingList()
     {
         return $this->hasMany(WaitingList::class);
     }
+
     /**
-     * sprawdzić czy użytkownik to admin
+     * Sprawdzenie, czy użytkownik to admin
      */
     public function isAdmin()
     {
         return $this->role === self::ROLE_ADMIN;
     }
+
     /**
-     * sprawdzić czy użytkownik to gość
+     * Sprawdzenie, czy użytkownik to gość
      */
     public function isGuest()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
         return $this->role === self::ROLE_GUEST;
     }
-
-    /**
-     * @return HasMany<Reservation, $this>
-     */
-
 }
