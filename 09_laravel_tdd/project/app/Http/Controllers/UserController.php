@@ -17,30 +17,46 @@ class UserController extends Controller
         return view('user.events.index', compact('events'));
     }
 
+
     // Rejestracja na wydarzenie
-    public function register($eventId)
+    public function register(Request $request)
     {
-        $event = Event::findOrFail($eventId);
-
-        // Sprawdzanie, czy są wolne miejsca
-        if ($event->isFull()) {
-            // Jeśli wydarzenie jest pełne, zapisz użytkownika na listę oczekujących
-            WaitingList::create([
-                'user_id' => Auth::id(),
-                'event_id' => $event->id
-            ]);
-            return back()->with('message', 'Zapisano na listę oczekujących!');
-        }
-
-        // Zapisz rezerwację
-        Reservation::create([
-            'user_id' => Auth::id(),
-            'event_id' => $event->id,
-            'status' => Reservation::STATUS_CONFIRMED
+        // Walidacja danych
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'event_id' => 'required|exists:events,id',  // walidacja event_id
         ]);
 
-        return back()->with('message', 'Zapisano na wydarzenie!');
+        // Znajdź użytkownika po e-mailu lub stwórz nowego
+        $user = User::firstOrCreate(
+            ['email' => $validated['email']],
+            ['name' => $validated['first_name'] . ' ' . $validated['last_name']]
+        );
+
+        // Znajdź wydarzenie po ID
+        $event = Event::find($validated['event_id']);
+
+        if (!$event) {
+            return redirect()->back()->withErrors(['event_name' => 'Event not found.']);
+        }
+
+        // Sprawdź, czy wydarzenie jest pełne
+        if ($event->isFull()) {
+            return redirect()->back()->with('message', 'Event is full. You have been added to the waiting list.');
+        }
+
+        // Stwórz rezerwację
+        Reservation::create([
+            'user_id' => $user->id,
+            'event_id' => $event->id,
+        ]);
+
+        return redirect()->back()->with('message', 'Successfully registered for the event!');
     }
+
+
 
     // Anulowanie rezerwacji
     public function cancel($eventId)
@@ -70,6 +86,24 @@ class UserController extends Controller
     {
         $waitingList = WaitingList::where('user_id', Auth::id())->get();
         return view('user.events.waiting-list', compact('waitingList'));
+    }
+
+    public function store(Request $request)
+    {
+        // Walidacja danych
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'event_name' => 'required|string|max:255',
+        ]);
+
+        // Możesz tutaj zapisać dane do bazy danych lub wykonać inne operacje
+        // Na przykład:
+        // Reservation::create($validatedData);
+
+        // Powrót z komunikatem o sukcesie
+        return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
     }
 }
 

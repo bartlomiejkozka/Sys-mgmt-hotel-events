@@ -8,7 +8,7 @@ use App\Http\Middleware\AdminOnly;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
-
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -25,7 +25,10 @@ Route::get('/events', function () {
 
 Route::get('/form', function () {
     return view('form');
-});
+})->name('form');
+
+Route::post('/form', [UserController::class, 'store'])->name('reservations.store');
+
 
 Route::get('/myevents', function () {
     return view('myevents');
