@@ -71,7 +71,7 @@ class UserController extends Controller
     public function myEvents()
     {
         $reservations = Reservation::where('user_id', Auth::id())->get();
-        return view('user.events.my-events', compact('reservations'));
+        return view('myevents', compact('reservations'));
     }
 
     // Wyświetlanie wydarzeń, na które użytkownik jest zapisany

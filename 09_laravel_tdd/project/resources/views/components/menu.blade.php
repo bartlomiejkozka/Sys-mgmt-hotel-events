@@ -6,7 +6,7 @@
             </div>
             <div class="hidden sm:block">
                 <div class="flex space-x-4 justify-center">
-                    <a href="/" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Strona główna</a>
+                    <a href="/home" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Strona główna</a>
                     <a href="/events" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Lista wydarzeń</a>
                     <a href="/form" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Zapisz się na wydarzenie</a>
                     <a href="/myevents" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Moje zapisy</a>
