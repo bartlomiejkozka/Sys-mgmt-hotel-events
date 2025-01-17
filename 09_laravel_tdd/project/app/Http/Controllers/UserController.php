@@ -80,7 +80,9 @@ class UserController extends Controller
     // Wyświetlanie zapisanych wydarzeń
     public function myEvents()
     {
-        $reservations = Reservation::where('user_id', Auth::id())->get();
+        $reservations = Reservation::where('user_id', Auth::id())
+            ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
+            ->get();
         return view('myevents', compact('reservations'));
     }
 

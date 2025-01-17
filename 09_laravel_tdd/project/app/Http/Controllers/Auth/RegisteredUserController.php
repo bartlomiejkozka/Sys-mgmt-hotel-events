@@ -48,6 +48,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
         alert("Zarejestrowano");
-        return redirect(route('', absolute: false));
+        return redirect(route('/', absolute: false));
     }
 }
