@@ -11,11 +11,21 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     // Wyświetlenie wszystkich dostępnych wydarzeń
-    public function index()
+
+    public function events()
+    {
+        $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
+        return view('events', compact('events'));
+    }
+
+
+    public function form()
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
         return view('form', compact('events'));
     }
+
+
 
     // Rejestracja na wydarzenie
     public function register(Request $request)

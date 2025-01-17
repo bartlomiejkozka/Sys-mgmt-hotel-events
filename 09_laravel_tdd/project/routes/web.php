@@ -23,10 +23,10 @@ Route::get('/welcome', function () {
 });
 
 // Trasa do wydarzeń, widok listy wydarzeń
-Route::get('/events', [UserController::class, 'index'])->name('events.index');
+Route::get('/events', [UserController::class, 'events'])->name('events.index');
 
 // Trasa formularza rejestracji na wydarzenie
-Route::get('/form', [UserController::class, 'index'])->name('form'); // Używamy UserController do pobrania wydarzeń
+Route::get('/form', [UserController::class, 'form'])->name('form'); // Używamy UserController do pobrania wydarzeń
 
 Route::post('/reservations', [UserController::class, 'register'])->name('reservations.store');
 

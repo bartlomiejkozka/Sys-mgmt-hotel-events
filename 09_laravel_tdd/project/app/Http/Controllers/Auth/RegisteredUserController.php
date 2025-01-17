@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use function Laravel\Prompts\alert;
 
 class RegisteredUserController extends Controller
 {
@@ -46,7 +47,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(route('home', absolute: false));
+        alert("Zarejestrowano");
+        return redirect(route('', absolute: false));
     }
 }
