@@ -10,8 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    // Wyświetlenie wszystkich dostępnych wydarzeń
+    public function home()
+    {
+        $reservations = Reservation::where('user_id', Auth::id())
+            ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
+            ->get();
+        return view('myevents', compact('reservations'));
+    }
 
+    // Wyświetlenie wszystkich dostępnych wydarzeń
     public function events()
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
@@ -32,7 +39,7 @@ class UserController extends Controller
     {
         // Sprawdzamy, czy użytkownik jest zalogowany
         if (!Auth::check()) {
-            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.']);
+            return redirect('login')->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.'])->with('message', 'Rejestracja przebiegła pomyślnie!');
         }
 
         $validated = $request->validate([
@@ -109,6 +116,11 @@ class UserController extends Controller
 
         // Powrót z komunikatem o sukcesie
         return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
+    }
+
+    public function opinions()
+    {
+        return view('opinions');
     }
 }
 
