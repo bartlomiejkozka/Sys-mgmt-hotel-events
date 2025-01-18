@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         // Sprawdzamy, czy użytkownik jest zalogowany
         if (!Auth::check()) {
-            return redirect('login')->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.'])->with('message', 'Rejestracja przebiegła pomyślnie!');
+            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.'])->with('message', 'Rejestracja przebiegła pomyślnie!');
         }
 
         $validated = $request->validate([
