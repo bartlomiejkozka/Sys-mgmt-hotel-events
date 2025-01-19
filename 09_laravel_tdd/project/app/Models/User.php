@@ -9,12 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Database\Factories\UserFactory;
 
 /**
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Reservation[] $reservations
- */
-
-/**
- * @property int $id
- * @property string $role
+ * @template TFactory of \Database\Factories\UserFactory
  */
 class User extends Authenticatable
 {
@@ -56,24 +51,30 @@ class User extends Authenticatable
 
     /**
      * Relacja z listą oczekujących
+     *
+     * @return HasMany<WaitingList, User>
      */
-    public function waitingList()
+    public function waitingList(): HasMany
     {
         return $this->hasMany(WaitingList::class);
     }
 
     /**
      * Sprawdzenie, czy użytkownik to admin
+     *
+     * @return bool
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
     }
 
     /**
      * Sprawdzenie, czy użytkownik to gość
+     *
+     * @return bool
      */
-    public function isGuest()
+    public function isGuest(): bool
     {
         return $this->role === self::ROLE_GUEST;
     }

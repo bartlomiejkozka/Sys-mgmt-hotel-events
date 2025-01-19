@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\Models\Event;
 
+/**
+ * @template TFactory of \Database\Factories\ReviewFactory
+ */
 class Review extends Model
 {
     use HasFactory;

@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Database\Factories\WaitingListFactory;
 
 /**
- * @property int $user_id
- * @property int $event_id
- * @property User $user
- * @property Event $event
+ * @template TFactory of \Database\Factories\WaitingListFactory
  */
 class WaitingList extends Model
 {
