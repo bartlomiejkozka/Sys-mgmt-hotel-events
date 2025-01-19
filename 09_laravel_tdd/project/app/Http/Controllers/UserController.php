@@ -111,4 +111,3 @@ class UserController extends Controller
         return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
     }
 }
-

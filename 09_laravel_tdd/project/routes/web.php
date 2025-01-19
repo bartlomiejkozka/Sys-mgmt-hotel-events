@@ -59,21 +59,14 @@ Route::middleware('auth')->group(function () {
 
 // Trasy admina
 Route::middleware([AdminOnly::class])->group(function () {
-    Route::get('admin', function () {
-        return view('adminWelcome');
-    });
-
-    // Wydarzenia admina
-    Route::resource('admin/events', EventController::class);
-
-    // Powiadomienia admina
-    Route::resource('admin/notifications', NotificationController::class);
-
-    // Raporty admina
-    Route::resource('admin/reports', ReportController::class);
+    Route::resource('admin', AdminController::class)->middleware(AdminOnly::class);
+    Route::get('admin/profile', [ProfileController::class, 'edit'])->middleware(AdminOnly::class);
+    Route::patch('admin/profile/update', [ProfileController::class, 'update'])->middleware(AdminOnly::class);
+    Route::resource('admin/events', EventController::class)->middleware(AdminOnly::class);
+    Route::resource('admin/notifications', NotificationController::class)->middleware(AdminOnly::class);
+    Route::resource('admin/reports', ReportController::class)->middleware(AdminOnly::class);
 });
 
-// Trasa do komentowania (jeśli masz system komentarzy)
-Route::resource('/comments', CommentController::class);
+require __DIR__ . '/auth.php';
 
-require __DIR__ . '/auth.php'; // Trasy związane z autentykacją
+Route::resource('/comments', CommentController::class);

@@ -8,7 +8,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * Wypełnialne atrybuty
@@ -32,8 +33,8 @@ class User extends Authenticatable
     ];
 
     // Role użytkowników
-    const ROLE_ADMIN = 'admin';
-    const ROLE_GUEST = 'guest';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_GUEST = 'guest';
 
     /**
      * Relacja z rezerwacjami

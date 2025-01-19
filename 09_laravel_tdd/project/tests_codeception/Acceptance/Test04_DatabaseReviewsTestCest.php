@@ -1,8 +1,8 @@
 <?php
 
 namespace TestsCodeception\Acceptance;
-use Illuminate\Support\Facades\Schema;
 
+use Illuminate\Support\Facades\Schema;
 use TestsCodeception\Support\AcceptanceTester;
 
 class Test04_DatabaseReviewsTestCest
