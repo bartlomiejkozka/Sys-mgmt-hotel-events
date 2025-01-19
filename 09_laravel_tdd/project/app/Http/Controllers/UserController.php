@@ -14,21 +14,17 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     // Wyświetlenie wszystkich dostępnych wydarzeń
-
-    public function events()
+    public function events(): View
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
         return view('events', compact('events'));
     }
 
-
-    public function form()
+    public function form(): View
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
         return view('form', compact('events'));
     }
-
-
 
     // Rejestracja na wydarzenie
     public function register(Request $request): JsonResponse
@@ -59,10 +55,6 @@ class UserController extends Controller
 
         return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
     }
-
-
-
-
 
     // Anulowanie rezerwacji
     public function cancel(int $eventId): JsonResponse

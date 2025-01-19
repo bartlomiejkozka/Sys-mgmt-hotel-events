@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Dziedziczymy z odpowiedniej klasy
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -46,13 +46,12 @@ class User extends Authenticatable
     public const ROLE_GUEST = 'guest';
 
     /**
-     * @return HasMany<Reservation>
+     * @return HasMany<Reservation, User>
      */
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }
-
 
     /**
      * Relacja z listą oczekujących

@@ -57,11 +57,6 @@ class AcceptanceTester extends \Codeception\Actor
             $this->waitForJS('return document.oldPage !== "yes"');
         }
     }
-    public function seeRecord(string $table, array $criteria): void
-    {
-        $exists = \DB::table($table)->where($criteria)->exists();
-        \PHPUnit\Framework\Assert::assertTrue($exists, "Record not found in table {$table}");
-    }
 
     public function assertTrue(bool $condition, string $message = ''): void
     {

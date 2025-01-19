@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @template TFactory of ReviewFactory
+ * @template TFactory of \Database\Factories\ReviewFactory
  */
 class Review extends Model
 {
@@ -16,16 +17,20 @@ class Review extends Model
 
     /**
      * Relacja z użytkownikiem (Gość, który ocenił wydarzenie)
+     *
+     * @return BelongsTo<User, Review>
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
      * Relacja z wydarzeniem (wydarzenie, które zostało ocenione)
+     *
+     * @return BelongsTo<Event, Review>
      */
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $user_id
  * @property int $event_id
+ * @property User $user
+ * @property Event $event
  */
 class WaitingList extends Model
 {
@@ -18,6 +20,8 @@ class WaitingList extends Model
 
     /**
      * Relacja z użytkownikiem (Gość, który zapisał się na listę oczekujących)
+     *
+     * @return BelongsTo<User, WaitingList>
      */
     public function user(): BelongsTo
     {
@@ -26,6 +30,8 @@ class WaitingList extends Model
 
     /**
      * Relacja z wydarzeniem (wydarzenie, na które zapisał się gość)
+     *
+     * @return BelongsTo<Event, WaitingList>
      */
     public function event(): BelongsTo
     {

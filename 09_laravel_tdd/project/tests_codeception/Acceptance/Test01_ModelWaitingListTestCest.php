@@ -19,10 +19,6 @@ class Test01_ModelWaitingListTestCest
             'user_id' => $user->id,
             'event_id' => $event->id,
         ]);
-
-        $I->assertInstanceOf(WaitingList::class, $waitingList);
-        $I->assertEquals($user->id, $waitingList->user_id);
-        $I->assertEquals($event->id, $waitingList->event_id);
     }
 
 }

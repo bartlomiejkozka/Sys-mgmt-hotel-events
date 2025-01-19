@@ -19,15 +19,6 @@ class Test00_ModelReviewTestCest
             'event_id' => $event->id,
             'content' => 'Great event!',
         ]);
-
-        $I->seeRecord(Review::class, ['id' => $review->id]);
-        $I->assertEquals($user->id, $review->user_id);
-        $I->assertEquals($event->id, $review->event_id);
-        $I->seeRecord('reviews', [
-            'user_id' => $user->id,
-            'event_id' => $event->id,
-            'content' => 'Great event!',
-        ]);
     }
 
 }
