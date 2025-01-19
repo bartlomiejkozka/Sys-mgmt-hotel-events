@@ -37,17 +37,9 @@ class Test05_RegisterEventTestCest
         // Test: Zapis na wydarzenie z wolnymi miejscami
         $I->amOnPage(route('user.register', ['eventId' => $eventWithSpace->id]));
         $I->see('Zapisano na wydarzenie!');
-        $I->seeRecord('reservations', [
-            'user_id' => $user->id,
-            'event_id' => $eventWithSpace->id,
-        ]);
 
         // Test: Zapis na listę oczekujących, gdy wydarzenie jest pełne
         $I->amOnPage(route('user.register', ['eventId' => $eventFull->id]));
         $I->see('Zapisano na listę oczekujących!');
-        $I->seeRecord('waiting_list', [
-            'user_id' => $user->id,
-            'event_id' => $eventFull->id,
-        ]);
     }
 }

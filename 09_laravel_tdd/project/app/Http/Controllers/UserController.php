@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         // Sprawdzamy, czy użytkownik jest zalogowany
         if (!Auth::check()) {
-            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.']);
+            return response()->json(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.'], 401);
         }
 
         $validated = $request->validate([
@@ -44,7 +44,7 @@ class UserController extends Controller
         // Sprawdzenie, czy wydarzenie istnieje
         $event = Event::find($validated['event_id']);
         if (!$event) {
-            return redirect()->route('form')->withErrors(['event_id' => 'Event not found.']);
+            return response()->json(['event_id' => 'Event not found.'], 404);
         }
 
         // Zapisanie użytkownika na wydarzenie
@@ -53,8 +53,9 @@ class UserController extends Controller
             'event_id' => $validated['event_id'],
         ]);
 
-        return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
+        return response()->json(['message' => 'Zarejestrowano na wydarzenie!'], 200);
     }
+
 
     // Anulowanie rezerwacji
     public function cancel(int $eventId): JsonResponse
@@ -66,11 +67,12 @@ class UserController extends Controller
 
         if ($reservation) {
             $reservation->delete();
-            return back()->with('message', 'Rezerwacja została anulowana.');
+            return response()->json(['message' => 'Rezerwacja została anulowana.'], 200);
         }
 
-        return back()->withErrors(['message' => 'Nie masz rezerwacji na to wydarzenie.']);
+        return response()->json(['message' => 'Nie masz rezerwacji na to wydarzenie.'], 404);
     }
+
 
     // Wyświetlanie zapisanych wydarzeń
     public function myEvents(): View
@@ -103,6 +105,7 @@ class UserController extends Controller
         // Reservation::create($validatedData);
 
         // Powrót z komunikatem o sukcesie
-        return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
+        return response()->json(['message' => 'Rejestracja przebiegła pomyślnie!'], 200);
     }
+
 }
