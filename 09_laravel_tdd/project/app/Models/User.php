@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable; // Dziedziczymy z odpowiedniej klasy
 use Illuminate\Notifications\Notifiable;
-
+/**
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Reservation[] $reservations
+ */
 class User extends Authenticatable
 {
     use HasFactory;
@@ -39,7 +42,7 @@ class User extends Authenticatable
     /**
      * Relacja z rezerwacjami
      */
-    public function reservations()
+    public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }
