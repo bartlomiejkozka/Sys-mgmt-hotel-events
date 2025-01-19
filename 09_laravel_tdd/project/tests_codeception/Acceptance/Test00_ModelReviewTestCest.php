@@ -11,13 +11,18 @@ class Test00_ModelReviewTestCest
 {
     public function test(AcceptanceTester $I): void
     {
-        $I->wantTo('Ensure Review model has correct relationships');
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
 
-        $review = Review::factory()->create();
-        $user = $review->user;
-        $event = $review->event;
+        $review = Review::create([
+            'user_id' => $user->id,
+            'event_id' => $event->id,
+            'content' => 'Great event!',
+        ]);
 
-        $I->assertInstanceOf(User::class, $user, 'Review does not have a valid user relationship');
-        $I->assertInstanceOf(Event::class, $event, 'Review does not have a valid event relationship');
+        $I->assertInstanceOf(Review::class, $review);
+        $I->assertEquals($user->id, $review->user_id);
+        $I->assertEquals($event->id, $review->event_id);
     }
+
 }

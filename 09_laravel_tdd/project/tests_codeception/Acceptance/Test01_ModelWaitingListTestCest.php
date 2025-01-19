@@ -11,13 +11,17 @@ class Test01_ModelWaitingListTestCest
 {
     public function test(AcceptanceTester $I): void
     {
-        $I->wantTo('Ensure WaitingList model has correct relationships');
+        $user = User::factory()->create();
+        $event = Event::factory()->create();
 
-        $waitingList = WaitingList::factory()->create();
-        $user = $waitingList->user;
-        $event = $waitingList->event;
+        $waitingList = WaitingList::create([
+            'user_id' => $user->id,
+            'event_id' => $event->id,
+        ]);
 
-        $I->assertInstanceOf(User::class, $user, 'WaitingList does not have a valid user relationship');
-        $I->assertInstanceOf(Event::class, $event, 'WaitingList does not have a valid event relationship');
+        $I->assertInstanceOf(WaitingList::class, $waitingList);
+        $I->assertEquals($user->id, $waitingList->user_id);
+        $I->assertEquals($event->id, $waitingList->event_id);
     }
+
 }

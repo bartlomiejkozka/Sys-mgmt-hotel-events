@@ -9,6 +9,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,12 +60,16 @@ Route::middleware('auth')->group(function () {
 
 // Trasy admina
 Route::middleware([AdminOnly::class])->group(function () {
-    Route::resource('admin', AdminController::class)->middleware(AdminOnly::class);
-    Route::get('admin/profile', [ProfileController::class, 'edit'])->middleware(AdminOnly::class);
-    Route::patch('admin/profile/update', [ProfileController::class, 'update'])->middleware(AdminOnly::class);
-    Route::resource('admin/events', EventController::class)->middleware(AdminOnly::class);
-    Route::resource('admin/notifications', NotificationController::class)->middleware(AdminOnly::class);
-    Route::resource('admin/reports', ReportController::class)->middleware(AdminOnly::class);
+    Route::resource('admin', AdminController::class);
+
+    Route::get('admin/profile', [ProfileController::class, 'edit']);
+    Route::patch('admin/profile/update', [ProfileController::class, 'update']);
+
+    Route::resource('admin/events', EventController::class);
+
+    Route::resource('admin/notifications', NotificationController::class);
+
+    Route::resource('admin/reports', ReportController::class);
 });
 
 require __DIR__ . '/auth.php';
