@@ -8,6 +8,9 @@ class Test02_CancelReservationCest
 {
     public function test(AcceptanceTester $I): void
     {
+        $userId = 1; // Możesz dynamicznie pobrać user ID
+        $eventId = 1; // Możesz dynamicznie pobrać event ID
+
         $I->wantTo('cancel a reservation');
 
         // Log in as a user
@@ -26,8 +29,8 @@ class Test02_CancelReservationCest
 
         // Verify the cancellation in the database
         $I->dontSeeInDatabase('reservations', [
-            'user_id' => 1, // Replace with the actual user ID
-            'event_id' => 1, // Replace with the actual event ID
+            'user_id' => $userId,
+            'event_id' => $eventId,
         ]);
     }
 }
