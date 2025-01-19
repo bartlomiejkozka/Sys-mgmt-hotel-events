@@ -1,10 +1,10 @@
 <?php
 
 namespace TestsCodeception\Acceptance;
+
 use App\Models\WaitingList;
 use App\Models\User;
 use App\Models\Event;
-
 use TestsCodeception\Support\AcceptanceTester;
 
 class Test01_ModelWaitingListTestCest

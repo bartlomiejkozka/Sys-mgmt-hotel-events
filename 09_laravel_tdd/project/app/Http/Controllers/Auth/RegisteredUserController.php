@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+
 use function Laravel\Prompts\alert;
 
 class RegisteredUserController extends Controller
@@ -47,7 +48,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-//        Auth::login($user); automatyczne logowanie po rejestracji
+        Auth::login($user); //automatyczne logowanie po rejestracji
 
         return redirect(route('login', absolute: false));
     }
