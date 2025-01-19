@@ -6,6 +6,7 @@ use App\Models\WaitingList;
 use App\Models\User;
 use App\Models\Event;
 use TestsCodeception\Support\AcceptanceTester;
+use Codeception\Util\Assert;
 
 class Test01_ModelWaitingListTestCest
 {

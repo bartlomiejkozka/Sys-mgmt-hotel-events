@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Reservation;
 use App\Models\WaitingList;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -28,7 +31,7 @@ class UserController extends Controller
 
 
     // Rejestracja na wydarzenie
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         // Sprawdzamy, czy użytkownik jest zalogowany
         if (!Auth::check()) {
@@ -62,7 +65,7 @@ class UserController extends Controller
 
 
     // Anulowanie rezerwacji
-    public function cancel($eventId)
+    public function cancel(int $eventId): JsonResponse
     {
         $event = Event::findOrFail($eventId);
         $reservation = Reservation::where('event_id', $event->id)
@@ -78,7 +81,7 @@ class UserController extends Controller
     }
 
     // Wyświetlanie zapisanych wydarzeń
-    public function myEvents()
+    public function myEvents(): View
     {
         $reservations = Reservation::where('user_id', Auth::id())
             ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
@@ -87,13 +90,13 @@ class UserController extends Controller
     }
 
     // Wyświetlanie wydarzeń, na które użytkownik jest zapisany
-    public function waitingList()
+    public function waitingList(): View
     {
         $waitingList = WaitingList::where('user_id', Auth::id())->get();
         return view('user.events.waiting-list', compact('waitingList'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         // Walidacja danych
         $validatedData = $request->validate([

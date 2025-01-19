@@ -53,6 +53,7 @@ class User extends Authenticatable
         return $this->hasMany(Reservation::class);
     }
 
+
     /**
      * Relacja z listą oczekujących
      */

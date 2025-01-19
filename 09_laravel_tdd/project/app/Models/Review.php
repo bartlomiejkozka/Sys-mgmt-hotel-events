@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @template TFactory of ReviewFactory
+ */
 class Review extends Model
 {
     use HasFactory;
