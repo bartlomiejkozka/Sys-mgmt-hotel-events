@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        html, body {
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
     <title>Laravel</title>
 </head>
 <body>
