@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable; // Dziedziczymy z odpowiedniej klasy
 use Illuminate\Notifications\Notifiable;
+
 /**
  * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Reservation[] $reservations
  */
