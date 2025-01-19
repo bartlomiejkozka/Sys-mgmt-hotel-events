@@ -10,6 +10,11 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Reservation[] $reservations
  */
+
+/**
+ * @property int $id
+ * @property string $role
+ */
 class User extends Authenticatable
 {
     use HasFactory;
@@ -41,7 +46,7 @@ class User extends Authenticatable
     public const ROLE_GUEST = 'guest';
 
     /**
-     * Relacja z rezerwacjami
+     * @return HasMany<Reservation>
      */
     public function reservations(): HasMany
     {

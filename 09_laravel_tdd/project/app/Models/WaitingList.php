@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $user_id
+ * @property int $event_id
+ */
 class WaitingList extends Model
 {
     use HasFactory;

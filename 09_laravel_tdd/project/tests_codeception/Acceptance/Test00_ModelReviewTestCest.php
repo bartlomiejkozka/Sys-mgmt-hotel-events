@@ -20,7 +20,7 @@ class Test00_ModelReviewTestCest
             'content' => 'Great event!',
         ]);
 
-        $I->assertInstanceOf(Review::class, $review);
+        $I->seeRecord(Review::class, ['id' => $review->id]);
         $I->assertEquals($user->id, $review->user_id);
         $I->assertEquals($event->id, $review->event_id);
         $I->seeRecord('reviews', [
