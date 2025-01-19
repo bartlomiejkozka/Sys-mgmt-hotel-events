@@ -19,10 +19,11 @@ parameters:
         - '#Method App\\Http\\Controllers\\UserController::store\\(\\) has no return type specified.#'
 
         - '#Cannot access offset.*event_id.*#'
-        - '#Property App\\Models\\Event\\$id not found.#'
+        - '#Property App\\Models\\Event\\\$id not found.#'
 
         - '#Class App\\Models\\Review uses generic trait.*HasFactory.*but does not specify its types:.*#'
         - '#Method App\\Models\\User::reservations.*return type.*does not specify.*#'
         - '#Method App\\Models\\User::waitingList.*has no return type specified.#'
         - '#Method App\\Models\\User::isAdmin.*has no return type specified.#'
         - '#Method App\\Models\\User::isGuest.*has no return type specified.#'
+
