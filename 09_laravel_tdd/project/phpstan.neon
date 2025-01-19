@@ -1,8 +1,7 @@
 includes:
     - ./vendor/larastan/larastan/extension.neon
-
 parameters:
-    level: max
+    level: 1
     paths:
         - .
     excludePaths:
@@ -11,19 +10,3 @@ parameters:
         - storage
         - config
         - tests_codeception/Support/_generated
-    ignoreErrors:
-        - '#Method App\\Http\\Controllers\\UserController::register\\(\\) has no return type specified.#'
-        - '#Method App\\Http\\Controllers\\UserController::cancel\\(\\) has no return type specified.#'
-        - '#Method App\\Http\\Controllers\\UserController::myEvents\\(\\) has no return type specified.#'
-        - '#Method App\\Http\\Controllers\\UserController::waitingList\\(\\) has no return type specified.#'
-        - '#Method App\\Http\\Controllers\\UserController::store\\(\\) has no return type specified.#'
-
-        - '#Cannot access offset.*event_id.*#'
-        - '#Property App\\Models\\Event\\\$id not found.#'
-
-        - '#Class App\\Models\\Review uses generic trait.*HasFactory.*but does not specify its types:.*#'
-        - '#Method App\\Models\\User::reservations.*return type.*does not specify.*#'
-        - '#Method App\\Models\\User::waitingList.*has no return type specified.#'
-        - '#Method App\\Models\\User::isAdmin.*has no return type specified.#'
-        - '#Method App\\Models\\User::isGuest.*has no return type specified.#'
-

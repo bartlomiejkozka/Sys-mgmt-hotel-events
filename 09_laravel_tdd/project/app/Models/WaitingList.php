@@ -16,8 +16,6 @@ class WaitingList extends Model
     protected $fillable = ['user_id', 'event_id'];
 
     /**
-     * Relacja z użytkownikiem (Gość, który zapisał się na listę oczekujących)
-     *
      * @return BelongsTo<User, WaitingList>
      */
     public function user(): BelongsTo
@@ -26,8 +24,6 @@ class WaitingList extends Model
     }
 
     /**
-     * Relacja z wydarzeniem (wydarzenie, na które zapisał się gość)
-     *
      * @return BelongsTo<Event, WaitingList>
      */
     public function event(): BelongsTo
