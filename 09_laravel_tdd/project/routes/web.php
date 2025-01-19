@@ -52,14 +52,22 @@ Route::middleware('auth')->group(function () {
     Route::resource('books', BookController::class);
 });
 
+//=====================ADMIN ROUTES==============================
+
 Route::middleware([AdminOnly::class])->group(function () {
-    Route::resource('admin', AdminController::class)->middleware(AdminOnly::class);
-    Route::get('admin/profile', [ProfileController::class, 'edit'])->middleware(AdminOnly::class);
-    Route::patch('admin/profile/update', [ProfileController::class, 'update'])->middleware(AdminOnly::class);
-    Route::resource('admin/events', EventController::class)->middleware(AdminOnly::class);
-    Route::resource('admin/notifications', NotificationController::class)->middleware(AdminOnly::class);
-    Route::resource('admin/reports', ReportController::class)->middleware(AdminOnly::class);
+    Route::resource('admin', AdminController::class);
+
+    Route::get('admin/profile', [ProfileController::class, 'edit']);
+    Route::patch('admin/profile/update', [ProfileController::class, 'update']);
+
+    Route::resource('admin/events', EventController::class);
+
+    Route::resource('admin/notifications', NotificationController::class);
+
+    Route::resource('admin/reports', ReportController::class);
 });
+
+//================================================================
 
 require __DIR__ . '/auth.php';
 
