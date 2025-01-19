@@ -30,7 +30,7 @@ class UserController extends Controller
     {
         // Sprawdzamy, czy użytkownik jest zalogowany
         if (!Auth::check()) {
-            return response()->json(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.'], 401);
+            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.']);
         }
 
         // Walidacja danych wejściowych
@@ -44,7 +44,7 @@ class UserController extends Controller
         // Sprawdzenie, czy wydarzenie istnieje
         $event = Event::find($validated['event_id']);
         if (!$event) {
-            return response()->json(['event_id' => 'Event not found.'], 404);
+            return redirect()->route('form')->withErrors(['event_id' => 'Event not found.']);
         }
 
         // Zapisanie użytkownika na wydarzenie
@@ -53,7 +53,7 @@ class UserController extends Controller
             'event_id' => $validated['event_id'],
         ]);
 
-        return response()->json(['message' => 'Zarejestrowano na wydarzenie!'], 200);
+        return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
     }
 
     // Anulowanie rezerwacji
@@ -66,10 +66,10 @@ class UserController extends Controller
 
         if ($reservation) {
             $reservation->delete();
-            return response()->json(['message' => 'Rezerwacja została anulowana.'], 200);
+            return back()->with('message', 'Rezerwacja została anulowana.');
         }
 
-        return response()->json(['message' => 'Nie masz rezerwacji na to wydarzenie.'], 404);
+        return back()->withErrors(['message' => 'Nie masz rezerwacji na to wydarzenie.']);
     }
 
     // Wyświetlanie zapisanych wydarzeń
@@ -104,6 +104,6 @@ class UserController extends Controller
         // Reservation::create($validatedData);
 
         // Powrót z komunikatem o sukcesie
-        return response()->json(['message' => 'Rejestracja przebiegła pomyślnie!'], 200);
+        return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
     }
 }
