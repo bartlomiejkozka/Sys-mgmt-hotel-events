@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class gitAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
