@@ -55,12 +55,12 @@ Route::middleware('auth')->group(function () {
 //=====================ADMIN ROUTES==============================
 
 Route::middleware([AdminOnly::class])->group(function () {
-    Route::resource('admin', AdminController::class);
+    Route::get('admin', [AdminController::class, 'index']);
 
-    Route::get('admin/profile', [ProfileController::class, 'edit']);
-    Route::patch('admin/profile/update', [ProfileController::class, 'update']);
+    Route::get('/admin/profile', [ProfileController::class, 'edit']);
+    //Route::patch('/admin/profile/update', [ProfileController::class, 'update']);
 
-    Route::resource('admin/events', EventController::class);
+    Route::resource('/admin/events', EventController::class);
 
     Route::resource('admin/notifications', NotificationController::class);
 

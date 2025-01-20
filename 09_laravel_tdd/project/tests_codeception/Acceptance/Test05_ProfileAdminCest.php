@@ -21,18 +21,11 @@ class Test05_ProfileAdminCest
         $I->see("Admin");
 
         $I->see("Email");
-        //$I->see("admin123@gmail.com");
 
 
         //========================================================
 
         $I->wantTo("Check if Admin name and email are editable");
-
-//        $I->fillField('name', 'test');
-//        $I->dontSeeInField('name', 'test');
-//
-//        $I->fillField('email', 'test@test.com');
-//        $I->dontSeeInField('email', 'test@test.com');
 
         $I->see("Update Password");
         $I->see("Current Password", "label");
@@ -53,15 +46,6 @@ class Test05_ProfileAdminCest
 
         $I->see('Profile');
 
-//        $name = auth()->user()->name;
-//        $email = auth()->user()->email;
-//        $password = "$2y$12\$ThH.wm8z6n4rOsaQO7SZ/e8FgohjLe.gNhw/IrjhpZ9lopbUu9zjS";
-//
-//        $I->seeInDatabase('users', [
-//            'name' => $name,
-//            'email' => $email,
-//            'password' => $password
-//        ]);
 
         $I->wantTo('Check if there are possibility to delete Admin account');
 
