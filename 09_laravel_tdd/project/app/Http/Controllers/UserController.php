@@ -5,35 +5,43 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Reservation;
 use App\Models\WaitingList;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    public function home()
+    {
+        $reservations = Reservation::where('user_id', Auth::id())
+            ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
+            ->get();
+        return view('myevents', compact('reservations'));
+    }
+
     // Wyświetlenie wszystkich dostępnych wydarzeń
-    public function events(): View
+    public function events()
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
         return view('events', compact('events'));
     }
 
-    public function form(): View
+
+    public function form()
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
         return view('form', compact('events'));
     }
 
+
+
     // Rejestracja na wydarzenie
-    public function register(Request $request): JsonResponse
+    public function register(Request $request)
     {
         // Sprawdzamy, czy użytkownik jest zalogowany
         if (!Auth::check()) {
-            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.']);
+            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.'])->with('message', 'Rejestracja przebiegła pomyślnie!');
         }
 
-        // Walidacja danych wejściowych
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -56,8 +64,12 @@ class UserController extends Controller
         return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
     }
 
+
+
+
+
     // Anulowanie rezerwacji
-    public function cancel(int $eventId): JsonResponse
+    public function cancel($eventId)
     {
         $event = Event::findOrFail($eventId);
         $reservation = Reservation::where('event_id', $event->id)
@@ -73,23 +85,22 @@ class UserController extends Controller
     }
 
     // Wyświetlanie zapisanych wydarzeń
-    public function myEvents(): View
+    public function myEvents()
     {
         $reservations = Reservation::where('user_id', Auth::id())
             ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
             ->get();
-        return view('myevents', ['reservations' => $reservations]);
+        return view('myevents', compact('reservations'));
     }
 
     // Wyświetlanie wydarzeń, na które użytkownik jest zapisany
-    public function waitingList(): View
+    public function waitingList()
     {
         $waitingList = WaitingList::where('user_id', Auth::id())->get();
         return view('user.events.waiting-list', compact('waitingList'));
     }
 
-    // Rejestracja użytkownika
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         // Walidacja danych
         $validatedData = $request->validate([
@@ -105,5 +116,10 @@ class UserController extends Controller
 
         // Powrót z komunikatem o sukcesie
         return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
+    }
+
+    public function opinions()
+    {
+        return view('opinions');
     }
 }

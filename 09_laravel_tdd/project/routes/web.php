@@ -39,7 +39,7 @@ Route::post('/form', [UserController::class, 'register'])->name('reservations.st
 Route::get('/myevents', [UserController::class, 'myEvents'])->name('myevents');
 
 // Trasa do powiadomień
-Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
 
 // Trasa do opinii (jeśli masz jakąś logikę na ten temat)
 Route::get('/opinions', [UserController::class, 'opinions'])->name('opinions.index');

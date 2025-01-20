@@ -24,6 +24,7 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+
     /**
      * Handle an incoming registration request.
      *
@@ -47,8 +48,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-        alert("Zarejestrowano");
-        return redirect(route('/', absolute: false));
+        Auth::login($user); //automatyczne logowanie po rejestracji
+
+        return redirect(route('login', absolute: false));
     }
 }
