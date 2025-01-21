@@ -128,7 +128,7 @@ class UserController extends Controller
         $events = Event::where('event_date', '>=', now())->get();
 
         // Pobieramy wszystkie opinie przypisane do zalogowanego użytkownika
-        $reviews = Review::where('user_id', Auth::id())->get();
+        $reviews = Review::all();
 
         // Przekazujemy wydarzenia i opinie do widoku
         return view('opinions', compact('events', 'reviews'));

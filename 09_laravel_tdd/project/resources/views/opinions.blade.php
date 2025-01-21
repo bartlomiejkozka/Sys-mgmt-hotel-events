@@ -68,6 +68,7 @@
                 <p class="text-gray-500 dark:text-gray-400">Rating: {{ $review->rating }} / 5</p>
             </article>
         @endforeach
+
     </div>
 </section>
 </body>
