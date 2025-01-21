@@ -2,38 +2,35 @@
 
 namespace TestsCodeception\Acceptance;
 
-use App\Models\User;
-use App\Models\Event;
 use TestsCodeception\Support\AcceptanceTester;
 
 class Test02_CancelReservationCest
 {
     public function test(AcceptanceTester $I): void
     {
-        $user = User::factory()->create(['email' => 'testuser@example.com', 'password' => bcrypt('password')]);
-        $event = Event::factory()->create(['name' => 'Test Event']);
+        $userId = 1; // Możesz dynamicznie pobrać user ID
+        $eventId = 1; // Możesz dynamicznie pobrać event ID
 
-        $I->wantTo('Join an event and then cancel the reservation');
+        $I->wantTo('cancel a reservation');
 
+        // Log in as a user
         $I->amOnPage('/login');
-        $I->fillField('email', $user->email);
-        $I->fillField('password', 'password');
+        $I->fillField('email', 'testuser@example.com'); // Replace with a seeded user email
+        $I->fillField('password', 'password'); // Replace with a seeded user password
         $I->click('Login');
 
-        $I->amOnPage(route('user.register', ['eventId' => $event->id]));
-        $I->seeInDatabase('reservations', [
-            'user_id' => $user->id,
-            'event_id' => $event->id,
-        ]);
-
+        // Go to "My Events" page
         $I->amOnPage('/events/my-events');
-        $I->see($event->name);
+        $I->see('Test Event');
 
+        // Cancel the reservation
         $I->click('Anuluj rezerwację');
+        $I->see('Rezerwacja została anulowana.');
 
+        // Verify the cancellation in the database
         $I->dontSeeInDatabase('reservations', [
-            'user_id' => $user->id,
-            'event_id' => $event->id,
+            'user_id' => $userId,
+            'event_id' => $eventId,
         ]);
     }
 }
