@@ -40,6 +40,14 @@ Route::get('/opinions', function () {
     return view('opinions');
 });
 
+
+// testowy route
+Route::get('/test1', function () {
+    return view('listaWydarzen');
+});
+
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -55,10 +63,10 @@ Route::middleware('auth')->group(function () {
 //=====================ADMIN ROUTES==============================
 
 Route::middleware([AdminOnly::class])->group(function () {
-    Route::resource('admin', AdminController::class);
+    Route::get('admin', [AdminController::class, 'index']);
 
     Route::get('admin/profile', [ProfileController::class, 'edit']);
-    Route::patch('admin/profile/update', [ProfileController::class, 'update']);
+   // Route::patch('admin/profile/update', [ProfileController::class, 'update']);
 
     Route::resource('admin/events', EventController::class);
 
