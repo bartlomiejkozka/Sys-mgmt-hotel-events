@@ -98,27 +98,30 @@ class UserController extends Controller
 
 
     // Anulowanie rezerwacji
-    public function cancel($eventId)
+    public function cancel($id)
     {
-        $event = Event::findOrFail($eventId);
-        $reservation = Reservation::where('event_id', $event->id)
-            ->where('user_id', Auth::id())
+        $reservation = Reservation::where('id', $id)
+            ->where('user_id', auth()->id())
             ->first();
 
         if ($reservation) {
             $reservation->delete();
-            return back()->with('message', 'Rezerwacja została anulowana.');
+            return redirect()->back()->with('success', 'Reservation canceled successfully.');
         }
 
-        return back()->withErrors(['message' => 'Nie masz rezerwacji na to wydarzenie.']);
+        return redirect()->back()->with('error', 'Reservation not found.');
     }
+
 
     // Wyświetlanie zapisanych wydarzeń
     public function myEvents()
     {
         $reservations = Reservation::where('user_id', Auth::id())
-            ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
+            ->join('events', 'reservations.event_id', '=', 'events.id')
+            ->select('reservations.*') // Pobiera tylko dane z tabeli 'reservations'
+            ->with('event') // Ładuje szczegóły wydarzenia
             ->get();
+
         return view('myevents', compact('reservations'));
     }
 
@@ -160,3 +163,5 @@ class UserController extends Controller
     }
 
 }
+
+

@@ -38,6 +38,9 @@ Route::post('/form', [UserController::class, 'register'])->name('reservations.st
 // Trasa do wyświetlania zapisanych wydarzeń
 Route::get('/myevents', [UserController::class, 'myEvents'])->name('myevents');
 
+Route::delete('/reservation/{id}/cancel', [UserController::class, 'cancel'])->name('cancel.reservation');
+
+
 // Trasa do powiadomień
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
 
