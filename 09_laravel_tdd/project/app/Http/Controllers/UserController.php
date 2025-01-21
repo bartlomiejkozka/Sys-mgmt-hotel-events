@@ -74,28 +74,23 @@ class UserController extends Controller
 
     public function addReview(Request $request)
     {
-        // Sprawdzamy, czy użytkownik jest zalogowany
-        if (!Auth::check()) {
-            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby dodać opinię.'])->with('message', 'Rejestracja przebiegła pomyślnie!');
-        }
-
+        // Walidacja danych formularza
         $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'event_id' => 'required|exists:events,id',  // walidacja event_id
+            'comment' => 'required|string|max:255',
+            'event_id' => 'required|exists:events,id',  // Sprawdzamy, czy event istnieje
+            'rating' => 'required|integer|between:1,5', // Rating powinien być w zakresie 1-5
         ]);
 
-        // Zapisanie użytkownika na wydarzenie
+        // Zapisujemy opinię
         Review::create([
-            'user_id' => Auth::id(),  // Pobieranie ID zalogowanego użytkownika
+            'user_id' => Auth::id(),  // Pobieramy ID zalogowanego użytkownika
             'event_id' => $validated['event_id'],
             'comment' => $validated['comment'],
-            'raring' => 4,
-            'updated_at' => "2025-01-21 11:42:27",
+            'rating' => $validated['rating'],
         ]);
 
-        return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
+        // Przekierowanie po zapisaniu opinii
+        return redirect()->route('opinions')->with('message', 'Opinia została dodana!');
     }
 
 
@@ -129,8 +124,14 @@ class UserController extends Controller
 
     public function opinions()
     {
-        $reviews = Review::where('id', Auth::id())->get();
-        return view('opinions', compact('reviews'));
+        // Pobieramy wszystkie nadchodzące wydarzenia
+        $events = Event::where('event_date', '>=', now())->get();
+
+        // Pobieramy wszystkie opinie przypisane do zalogowanego użytkownika
+        $reviews = Review::where('user_id', Auth::id())->get();
+
+        // Przekazujemy wydarzenia i opinie do widoku
+        return view('opinions', compact('events', 'reviews'));
     }
 
     // Wyświetlanie wydarzeń, na które użytkownik jest zapisany

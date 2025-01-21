@@ -30,7 +30,7 @@ Route::get('/form', [UserController::class, 'form'])->name('form'); // Używamy 
 
 Route::post('/reservations', [UserController::class, 'register'])->name('reservations.store');
 
-Route::post('/opinions', [UserController::class, 'store'])->name('reviews.store');
+Route::post('/opinions', [UserController::class, 'addReview'])->name('reviews.add');
 
 // Trasa do zapisania rezerwacji na wydarzenie
 Route::post('/form', [UserController::class, 'register'])->name('reservations.store');
