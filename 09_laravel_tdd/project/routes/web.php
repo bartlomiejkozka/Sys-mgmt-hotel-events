@@ -42,7 +42,7 @@ Route::get('/myevents', [UserController::class, 'myEvents'])->name('myevents');
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
 
 // Trasa do opinii (jeśli masz jakąś logikę na ten temat)
-Route::get('/opinions', [UserController::class, 'opinions'])->name('opinions.index');
+Route::get('/opinionsq', [UserController::class, 'opinions'])->name('opinions.index');
 
 // Trasa do dashboardu użytkownika
 Route::get('/home', function () {

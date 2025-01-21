@@ -10,14 +10,14 @@
 <body>
 <x-Menu/>
 
-<!-- Sprawdzanie, czy jest komunikat o sukcesie -->
+<!-- Komunikat o sukcesie -->
 @if(session()->has('message'))
     <div class="bg-green-500 text-white p-4 mb-4 rounded">
         {{ session('message') }}
     </div>
 @endif
 
-<!-- Sprawdzanie błędów walidacji -->
+<!-- Komunikaty o błędach -->
 @if($errors->any())
     <div class="bg-red-500 text-white p-4 mb-4 rounded">
         <ul>
@@ -39,7 +39,7 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label for="first_name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    First Name
+                    Imię
                 </label>
                 <input name="first_name" id="first_name" type="text" placeholder="Jane"
                        class="appearance-none block w-full bg-gray-200 text-gray-700 border @error('first_name') border-red-500 @else border-gray-200 @enderror rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -52,7 +52,7 @@
             <!-- Last Name -->
             <div class="w-full md:w-1/2 px-3">
                 <label for="last_name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    Last Name
+                    Nazwisko
                 </label>
                 <input name="last_name" id="last_name" type="text" placeholder="Doe"
                        class="appearance-none block w-full bg-gray-200 text-gray-700 border @error('last_name') border-red-500 @else border-gray-200 @enderror rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -87,7 +87,9 @@
                 <select name="event_id" id="event_id" class="appearance-none block w-full bg-gray-200 text-gray-700 border @error('event_id') border-red-500 @else border-gray-200 @enderror rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="">Wybierz wydarzenie</option>
                     @foreach($events as $event)
-                        <option value="{{ $event->id }}" {{ old('event_id') == $event->id ? 'selected' : '' }}>{{ $event->name }}</option>
+                        <option value="{{ $event->id }}" {{ old('event_id') == $event->id ? 'selected' : '' }}>
+                            {{ $event->name }}
+                        </option>
                     @endforeach
                 </select>
                 @error('event_id')
@@ -98,7 +100,7 @@
 
         <!-- Submit Button -->
         <div class="w-full md:w-full px-3 mb-6 md:mb-0">
-            <x-primary-button class="ms-3">{{ __('Submit') }}</x-primary-button>
+            <x-primary-button class="ms-3">{{ __('Zapisz się') }}</x-primary-button>
         </div>
     </form>
 </div>

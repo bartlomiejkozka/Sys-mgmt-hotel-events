@@ -15,6 +15,9 @@ return new class () extends Migration {
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['user_id', 'event_id']); // Unikalność rejestracji
+
         });
     }
 
