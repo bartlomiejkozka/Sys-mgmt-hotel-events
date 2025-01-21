@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Event;
 use TestsCodeception\Support\AcceptanceTester;
 
-class Test00_ModelReviewTestCest
+class Test00_ModelReviewCest
 {
     public function test(AcceptanceTester $I): void
     {

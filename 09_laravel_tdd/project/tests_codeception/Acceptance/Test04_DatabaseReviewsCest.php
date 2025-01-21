@@ -5,7 +5,7 @@ namespace TestsCodeception\Acceptance;
 use Illuminate\Support\Facades\Schema;
 use TestsCodeception\Support\AcceptanceTester;
 
-class Test04_DatabaseReviewsTestCest
+class Test04_DatabaseReviewsCest
 {
     public function test(AcceptanceTester $I): void
     {

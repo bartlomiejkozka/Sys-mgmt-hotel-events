@@ -9,7 +9,7 @@ use App\Models\WaitingList;
 use Illuminate\Support\Facades\Auth;
 use TestsCodeception\Support\AcceptanceTester;
 
-class Test05_RegisterEventTestCest
+class Test05_RegisterEventCest
 {
     public function test(AcceptanceTester $I): void
     {

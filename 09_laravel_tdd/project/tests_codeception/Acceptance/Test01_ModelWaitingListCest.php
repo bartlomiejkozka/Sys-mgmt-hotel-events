@@ -8,7 +8,7 @@ use App\Models\Event;
 use TestsCodeception\Support\AcceptanceTester;
 use Codeception\Util\Assert;
 
-class Test01_ModelWaitingListTestCest
+class Test01_ModelWaitingListCest
 {
     public function test(AcceptanceTester $I): void
     {
