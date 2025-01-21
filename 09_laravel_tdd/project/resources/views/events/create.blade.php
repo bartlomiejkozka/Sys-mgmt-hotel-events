@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>Tworzenie Wydarzenia</title>
-</head>
-<body>
+<x-app-layout>
 <x-AdminMenu />
 <h1 class="text-center mt-10 text-3xl font-bold">Utwórz nowe wydarzenie</h1>
 
@@ -42,7 +33,7 @@
             <label for="max_participants" class="block text-sm font-medium text-gray-700 mb-2">Maksymalna liczba uczestników</label>
             <input type="number" name="max_participants" id="max_participants" min="1" required
                    class="block w-full px-4 py-2 border rounded-lg focus:ring-[#FF2D20] focus:border-[#FF2D20]">
-            <div class="text-center">
+            <div class="text-center mt-6">
                 <button type="submit"
                         class="w-full bg-[#FF2D20] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#E12C1E]">
                     Zapisz wydarzenie
@@ -53,5 +44,5 @@
 
     </form>
 </div>
-</body>
-</html>
+</x-app-layout>
+
