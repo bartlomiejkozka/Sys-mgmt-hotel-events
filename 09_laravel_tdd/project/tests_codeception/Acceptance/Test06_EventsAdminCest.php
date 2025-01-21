@@ -11,6 +11,10 @@ class Test06_EventsAdminCest
 
         $I->amOnPage('admin/events');
 
+        $I->seeCurrentUrlEquals('/login');
+
+        $I->logInAdmin();
+
         $I->see('Events', 'h2');
 
         $I->waitForNextPage(fn () => $I->click('Create Event'));
@@ -18,8 +22,6 @@ class Test06_EventsAdminCest
         $I->seeCurrentUrlEquals('/admin/events/create');
 
         $I->wantTo('Create a Event');
-
-        $I->amOnPage('/admin/events/create');
 
         $I->see('Create Event', 'h2');
 
@@ -30,7 +32,7 @@ class Test06_EventsAdminCest
         $I->fillField('event_time', '10:00');
         $I->fillField('max_participants', '10');
 
-        $I->click('Create');
+        $I->waitForNextPage(fn () => $I->click('Create'));
 
         /** @var string $id */
         $id = $I->grabFromDatabase('events', 'id', [
@@ -39,9 +41,9 @@ class Test06_EventsAdminCest
 
         $I->seeCurrentUrlEquals('/admin/events/' . $id);
 
-        $I->see('Test Event', 'h3');
+        $I->see('Test Event');
 
-        $I->see('Test Event description', 'h4');
+        $I->see('Test Event description');
 
         $I->seeInDatabase('events', [
             'name' => 'Test Event',

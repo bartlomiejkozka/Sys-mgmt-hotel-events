@@ -24,12 +24,12 @@ class NotificationController extends Controller
     {
         $notification = Notification::create($request->validated());
 
-        return redirect()->route('notifications.show', $notification);
+        return redirect()->route('notifications.index', $notification);
     }
 
     public function show(Notification $notification): View
     {
-        return view('notifications.show')->with('book', $notification);
+        return view('notifications.show')->with('notification', $notification);
     }
 
     public function destroy(Notification $notification): RedirectResponse
