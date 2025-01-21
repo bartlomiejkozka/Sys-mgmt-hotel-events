@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Reservation;
+use App\Models\Review;
 use App\Models\WaitingList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +72,31 @@ class UserController extends Controller
         return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
     }
 
+    public function addReview(Request $request)
+    {
+        // Sprawdzamy, czy użytkownik jest zalogowany
+        if (!Auth::check()) {
+            return redirect()->route('login')->withErrors(['message' => 'Musisz być zalogowany, aby dodać opinię.'])->with('message', 'Rejestracja przebiegła pomyślnie!');
+        }
+
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'event_id' => 'required|exists:events,id',  // walidacja event_id
+        ]);
+
+        // Zapisanie użytkownika na wydarzenie
+        Review::create([
+            'user_id' => Auth::id(),  // Pobieranie ID zalogowanego użytkownika
+            'event_id' => $validated['event_id'],
+            'comment' => $validated['comment'],
+            'raring' => 4,
+            'updated_at' => "2025-01-21 11:42:27",
+        ]);
+
+        return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
+    }
 
 
 
@@ -101,6 +127,12 @@ class UserController extends Controller
         return view('myevents', compact('reservations'));
     }
 
+    public function opinions()
+    {
+        $reviews = Review::where('id', Auth::id())->get();
+        return view('opinions', compact('reviews'));
+    }
+
     // Wyświetlanie wydarzeń, na które użytkownik jest zapisany
     public function waitingList()
     {
@@ -126,8 +158,4 @@ class UserController extends Controller
         return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
     }
 
-    public function opinions()
-    {
-        return view('opinions');
-    }
 }

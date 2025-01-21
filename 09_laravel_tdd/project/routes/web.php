@@ -9,7 +9,6 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +30,7 @@ Route::get('/form', [UserController::class, 'form'])->name('form'); // Używamy 
 
 Route::post('/reservations', [UserController::class, 'register'])->name('reservations.store');
 
+Route::post('/opinions', [UserController::class, 'store'])->name('reviews.store');
 
 // Trasa do zapisania rezerwacji na wydarzenie
 Route::post('/form', [UserController::class, 'register'])->name('reservations.store');
@@ -42,7 +42,7 @@ Route::get('/myevents', [UserController::class, 'myEvents'])->name('myevents');
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
 
 // Trasa do opinii (jeśli masz jakąś logikę na ten temat)
-Route::get('/opinionsq', [UserController::class, 'opinions'])->name('opinions.index');
+Route::get('/opinions', [UserController::class, 'opinions'])->name('opinions');
 
 // Trasa do dashboardu użytkownika
 Route::get('/home', function () {
@@ -60,18 +60,21 @@ Route::middleware('auth')->group(function () {
 
 // Trasy admina
 Route::middleware([AdminOnly::class])->group(function () {
-    Route::resource('admin', AdminController::class);
+    Route::get('admin', function () {
+        return view('adminWelcome');
+    });
 
-    Route::get('admin/profile', [ProfileController::class, 'edit']);
-    Route::patch('admin/profile/update', [ProfileController::class, 'update']);
-
+    // Wydarzenia admina
     Route::resource('admin/events', EventController::class);
 
+    // Powiadomienia admina
     Route::resource('admin/notifications', NotificationController::class);
 
+    // Raporty admina
     Route::resource('admin/reports', ReportController::class);
 });
 
-require __DIR__ . '/auth.php';
-
+// Trasa do komentowania (jeśli masz system komentarzy)
 Route::resource('/comments', CommentController::class);
+
+require __DIR__ . '/auth.php'; // Trasy związane z autentykacją
