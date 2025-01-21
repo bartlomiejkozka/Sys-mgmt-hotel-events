@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use App\Helpers\MigrationHelper;
 
 return new class () extends Migration {
     /**
      * Run the migrations.
      */
+    use MigrationHelper;
     public function up(): void
     {
         Schema::create('reservations', function (Blueprint $table) {
