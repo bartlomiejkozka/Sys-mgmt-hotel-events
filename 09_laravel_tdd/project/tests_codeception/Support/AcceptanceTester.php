@@ -45,14 +45,12 @@ class AcceptanceTester extends \Codeception\Actor
 
     public function waitForNextPage(callable $action): void
     {
-        // @phpstan-ignore function.alreadyNarrowedType
         if (method_exists($this, 'waitForJS')) {
             $this->waitForJS('return document.oldPage = "yes"');
         }
 
         $action();
 
-        // @phpstan-ignore function.alreadyNarrowedType
         if (method_exists($this, 'waitForJS')) {
             $this->waitForJS('return document.oldPage !== "yes"');
         }

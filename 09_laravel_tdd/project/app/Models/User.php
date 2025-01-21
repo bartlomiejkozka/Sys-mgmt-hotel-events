@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @template TFactory of \Database\Factories\UserFactory
+ * @property string $role
  */
 class User extends Authenticatable
 {
