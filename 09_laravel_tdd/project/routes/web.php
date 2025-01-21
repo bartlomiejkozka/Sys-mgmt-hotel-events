@@ -23,23 +23,22 @@ Route::get('/welcome', function () {
 });
 
 // Trasa do wydarzeń, widok listy wydarzeń
-Route::get('/events', [UserController::class, 'events'])->name('events.index');
+Route::get('/events', [EventController::class, 'events'])->name('events.index');
 
 // Trasa formularza rejestracji na wydarzenie
 Route::get('/form', [UserController::class, 'form'])->name('form'); // Używamy UserController do pobrania wydarzeń
 
-Route::post('/reservations', [UserController::class, 'register'])->name('reservations.store');
+Route::post('/reservations', [EventController::class, 'register'])->name('reservations.store');
 
 Route::post('/opinions', [UserController::class, 'addReview'])->name('reviews.add');
 
 // Trasa do zapisania rezerwacji na wydarzenie
-Route::post('/form', [UserController::class, 'register'])->name('reservations.store');
+Route::post('/form', [EventController::class, 'register'])->name('reservations.store');
 
 // Trasa do wyświetlania zapisanych wydarzeń
-Route::get('/myevents', [UserController::class, 'myEvents'])->name('myevents');
+Route::get('/myevents', [EventController::class, 'myEvents'])->name('myevents');
 
-Route::delete('/reservation/{id}/cancel', [UserController::class, 'cancel'])->name('cancel.reservation');
-
+Route::delete('/reservation/{id}/cancel', [EventController::class, 'cancel'])->name('cancel.reservation');
 
 // Trasa do powiadomień
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
