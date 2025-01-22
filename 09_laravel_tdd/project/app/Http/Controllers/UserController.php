@@ -20,57 +20,7 @@ class UserController extends Controller
     }
 
     // Wyświetlenie wszystkich dostępnych wydarzeń
-    public function events()
-    {
-        $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
-        return view('events', compact('events'));
-    }
 
-
-    public function form()
-    {
-        $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
-        return view('form', compact('events'));
-    }
-
-
-
-    // Rejestracja na wydarzenie
-    public function register(Request $request)
-    {
-        // Sprawdzenie, czy użytkownik jest zalogowany
-        if (!Auth::check()) {
-            return redirect()->route('login')
-                ->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.']);
-        }
-
-        // Walidacja danych
-        $validated = $request->validate([
-            'event_id' => 'required|exists:events,id',
-        ]);
-
-        $eventId = $validated['event_id'];
-        $userId = Auth::id();
-
-        // Sprawdzenie, czy użytkownik już jest zapisany na wydarzenie
-        $exists = Reservation::where('user_id', $userId)
-            ->where('event_id', $eventId)
-            ->exists();
-
-        if ($exists) {
-            return redirect()
-                ->back()
-                ->withErrors(['event_id' => 'Już jesteś zapisany na to wydarzenie.']);
-        }
-
-        // Rejestracja na wydarzenie
-        Reservation::create([
-            'user_id' => $userId,
-            'event_id' => $eventId,
-        ]);
-
-        return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
-    }
 
     public function addReview(Request $request)
     {
@@ -92,39 +42,6 @@ class UserController extends Controller
         // Przekierowanie po zapisaniu opinii
         return redirect()->route('opinions')->with('message', 'Opinia została dodana!');
     }
-
-
-
-
-
-    // Anulowanie rezerwacji
-    public function cancel($id)
-    {
-        $reservation = Reservation::where('id', $id)
-            ->where('user_id', auth()->id())
-            ->first();
-
-        if ($reservation) {
-            $reservation->delete();
-            return redirect()->back()->with('success', 'Reservation canceled successfully.');
-        }
-
-        return redirect()->back()->with('error', 'Reservation not found.');
-    }
-
-
-    // Wyświetlanie zapisanych wydarzeń
-    public function myEvents()
-    {
-        $reservations = Reservation::where('user_id', Auth::id())
-            ->join('events', 'reservations.event_id', '=', 'events.id')
-            ->select('reservations.*') // Pobiera tylko dane z tabeli 'reservations'
-            ->with('event') // Ładuje szczegóły wydarzenia
-            ->get();
-
-        return view('myevents', compact('reservations'));
-    }
-
     public function opinions()
     {
         // Pobieramy wszystkie nadchodzące wydarzenia
@@ -137,29 +54,6 @@ class UserController extends Controller
         return view('opinions', compact('events', 'reviews'));
     }
 
-    // Wyświetlanie wydarzeń, na które użytkownik jest zapisany
-    public function waitingList()
-    {
-        $waitingList = WaitingList::where('user_id', Auth::id())->get();
-        return view('user.events.waiting-list', compact('waitingList'));
-    }
 
-    public function store(Request $request)
-    {
-        // Walidacja danych
-        $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'event_name' => 'required|string|max:255',
-        ]);
-
-        // Możesz tutaj zapisać dane do bazy danych lub wykonać inne operacje
-        // Na przykład:
-        // Reservation::create($validatedData);
-
-        // Powrót z komunikatem o sukcesie
-        return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
-    }
 
 }
