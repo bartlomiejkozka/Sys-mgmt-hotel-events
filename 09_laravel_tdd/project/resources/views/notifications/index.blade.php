@@ -16,10 +16,13 @@
                                     <!-- Edit and Delete Buttons -->
                                     <div class="flex">
                                         <div class="mt-4 p-2">
-                                            <!-- Edit Button -->
-                                            <a href="{{ route('notifications.edit', $notification->id) }}" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
-                                                Edit
-                                            </a>
+                                            <form action="{{ route('notifications.edit', $notification) }}" method="GET">
+                                                @csrf
+                                                @method('GET')
+                                                <button type="submit" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
+                                                    Edytuj
+                                                </button>
+                                            </form>
                                         </div>
                                         <div class="mt-4 p-2">
                                             <!-- Delete Button -->
@@ -27,7 +30,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
-                                                    Delete
+                                                    Usuń
                                                 </button>
                                             </form>
                                         </div>
