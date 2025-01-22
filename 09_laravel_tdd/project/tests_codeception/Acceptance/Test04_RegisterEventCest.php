@@ -28,9 +28,9 @@ class Test04_RegisterEventCest
         $I->click('Log in');
         $I->amOnPage('/form');
 
-        $I->fillField('name', 'Test User');
-        $I->fillField('surname', 'Testowski');
-        $I->fillField('email', 'newuser@example.com');
+        $I->fillField('Jane', 'Test User');
+        $I->fillField('Doe', 'Testowski');
+        $I->fillField('joedoe@example.com', 'newuser@example.com');
         $I->click('Wybierz wydarzenie');
         $I->click('Music Festival 2025');
         $I->click('Zapisz się');
