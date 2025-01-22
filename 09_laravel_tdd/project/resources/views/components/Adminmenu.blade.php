@@ -12,9 +12,14 @@
                     <a href="/admin/opinions" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Opinie i oceny</a>
                 </div>
             </div>
-            <div class="flex shrink-0">
-                <a href="/welcome" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Wyloguj się</a>
-            </div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-logout :href="route('logout')"
+                          onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                    {{ __('Wyloguj się') }}
+                </x-logout>
+            </form>
         </div>
     </div>
 </nav>
