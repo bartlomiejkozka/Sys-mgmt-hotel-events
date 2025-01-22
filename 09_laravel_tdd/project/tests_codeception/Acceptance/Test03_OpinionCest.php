@@ -8,30 +8,26 @@ class Test03_OpinionCest
 {
     public function test(AcceptanceTester $I): void
     {
-        $eventId = 1;
-        $userId = 1;
+        $I->wantTo('give an opinion about selected event');
 
-        $I->wantTo('leave a review for an event');
+        $I->amOnPage('/register');
+        $I->fillField('name', 'opinion User');
+        $I->fillField('email', 'opinionuser@example.com');
+        $I->fillField('password', '123456782');
+        $I->fillField('password_confirmation', '123456782');
+        $I->click('Register');
 
-        $I->amOnPage('/login');
-        $I->fillField('email', 'testuser@example.com');
-        $I->fillField('password', 'password');
-        $I->click('Login');
+        $I->fillField('Jane', 'Test User');
+        $I->fillField('Doe', 'Testowski');
+        $I->fillField('joedoe@example.com', 'opinionuser@example.com');
+        $I->selectOption('select[name="event_id"]', 'Music Festival 2025');
+        $I->click('Zapisz się');
 
-        // Go to the event details page
-        $I->amOnPage("/opinions");
-
-        // Leave a review for the event
-        $I->fillField('review', 'To był niesamowity event!');
-        $I->selectOption('rating', '5');
-        $I->click('Submit Review');
-
-
-        $I->seeInDatabase('reviews', [
-            'user_id' => $userId,
-            'event_id' => $eventId,
-            'review' => 'To był niesamowity event!',
-            'rating' => 5
-        ]);
+        $I->amOnPage('/opinions');
+        $I->fillField('Write a comment...', 'Wooooow');
+        $I->selectOption('#event_id', 'Music Festival 2025');
+        $I->selectOption('#rating', '5');
+        $I->click('Post Comment');
+        $I->see('Rating: 5/5');
     }
 }
