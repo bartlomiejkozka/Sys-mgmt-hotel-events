@@ -31,8 +31,7 @@ class Test04_RegisterEventCest
         $I->fillField('Jane', 'Test User');
         $I->fillField('Doe', 'Testowski');
         $I->fillField('joedoe@example.com', 'newuser@example.com');
-        $I->click('Wybierz wydarzenie');
-        $I->click('Music Festival 2025');
+        $I->selectOption('select[name="event_id"]', 'Music Festival 2025');
         $I->click('Zapisz się');
 
         $I->amOnPage('/myevents');
