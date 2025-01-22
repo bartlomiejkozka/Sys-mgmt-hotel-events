@@ -4,7 +4,7 @@ namespace TestsCodeception\Acceptance;
 
 use TestsCodeception\Support\AcceptanceTester;
 
-class Test05_RegisterEventCest
+class Test04_RegisterEventCest
 {
     public function test(AcceptanceTester $I): void
     {
