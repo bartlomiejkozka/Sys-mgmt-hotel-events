@@ -28,23 +28,28 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                    <!-- Edit Button for each event -->
+                                    <!-- Edit and Delete Buttons -->
                                     <div class="flex">
                                         <div class="mt-4 p-2">
-                                            <!-- Dummy button, doesn't do anything for now -->
-                                            <button type="button" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
-                                                Edit (Dummy)
-                                            </button>
+                                            <!-- Edit Button -->
+                                            <a href="{{ route('events.edit', $event->id) }}" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
+                                                Edit
+                                            </a>
                                         </div>
                                         <div class="mt-4 p-2">
-                                            <!-- Dummy button, doesn't do anything for now -->
-                                            <button type="button" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
-                                                Delete (Dummy)
-                                            </button>
+                                            <!-- Delete Button -->
+                                            <form action="{{ route('events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
                         <!-- Create New Event Button -->
                         <div class="mt-6">

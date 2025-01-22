@@ -13,23 +13,23 @@
                                 <div class="border-b pb-6">
                                     <div class="font-bold text-xl mb-2">{{ $notification->title }}</div>
                                     <p class="text-gray-700 dark:text-gray-300">{{ $notification->body }}</p>
-                                    <!-- Edit Button for each notification -->
+                                    <!-- Edit and Delete Buttons -->
                                     <div class="flex">
+
                                         <div class="mt-4 p-2">
-                                            <!-- Dummy button, doesn't do anything for now -->
-                                            <button type="button" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
-                                                Edit (Dummy)
-                                            </button>
-                                        </div>
-                                        <div class="mt-4 p-2">
-                                            <!-- Dummy button, doesn't do anything for now -->
-                                            <button type="button" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
-                                                Delete (Dummy)
-                                            </button>
+                                            <!-- Delete Button -->
+                                            <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this notification?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
 
                         <!-- Create New Notification Button -->
