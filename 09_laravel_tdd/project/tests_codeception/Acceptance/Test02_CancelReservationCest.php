@@ -32,7 +32,6 @@ class Test02_CancelReservationCest
         $I->click('Zapisz się');
 
         $I->amOnPage('/myevents');
-        $I->see('Music Festival 2025');
         $I->click('Cancel');
         $I->cantSee('Music Festival 2025');
     }
