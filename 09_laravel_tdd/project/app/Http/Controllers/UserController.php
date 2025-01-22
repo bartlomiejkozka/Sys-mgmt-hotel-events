@@ -4,72 +4,56 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Reservation;
+use App\Models\Review;
 use App\Models\WaitingList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    // Wyświetlenie wszystkich dostępnych wydarzeń
-    public function index()
+    public function home()
     {
-        $events = Event::where('event_date', '>=', now())->get();
-        return view('user.events.index', compact('events'));
+        $reservations = Reservation::where('user_id', Auth::id())
+            ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
+            ->get();
+        return view('myevents', compact('reservations'));
     }
 
-    // Rejestracja na wydarzenie
-    public function register($eventId)
+    // Wyświetlenie wszystkich dostępnych wydarzeń
+
+
+    public function addReview(Request $request)
     {
-        $event = Event::findOrFail($eventId);
-
-        // Sprawdzanie, czy są wolne miejsca
-        if ($event->isFull()) {
-            // Jeśli wydarzenie jest pełne, zapisz użytkownika na listę oczekujących
-            WaitingList::create([
-                'user_id' => Auth::id(),
-                'event_id' => $event->id
-            ]);
-            return back()->with('message', 'Zapisano na listę oczekujących!');
-        }
-
-        // Zapisz rezerwację
-        Reservation::create([
-            'user_id' => Auth::id(),
-            'event_id' => $event->id,
-            'status' => Reservation::STATUS_CONFIRMED
+        // Walidacja danych formularza
+        $validated = $request->validate([
+            'comment' => 'required|string|max:255',
+            'event_id' => 'required|exists:events,id',  // Sprawdzamy, czy event istnieje
+            'rating' => 'required|integer|between:1,5', // Rating powinien być w zakresie 1-5
         ]);
 
-        return back()->with('message', 'Zapisano na wydarzenie!');
-    }
+        // Zapisujemy opinię
+        Review::create([
+            'user_id' => Auth::id(),  // Pobieramy ID zalogowanego użytkownika
+            'event_id' => $validated['event_id'],
+            'comment' => $validated['comment'],
+            'rating' => $validated['rating'],
+        ]);
 
-    // Anulowanie rezerwacji
-    public function cancel($eventId)
+        // Przekierowanie po zapisaniu opinii
+        return redirect()->route('opinions')->with('message', 'Opinia została dodana!');
+    }
+    public function opinions()
     {
-        $event = Event::findOrFail($eventId);
-        $reservation = Reservation::where('event_id', $event->id)
-            ->where('user_id', Auth::id())
-            ->first();
+        // Pobieramy wszystkie nadchodzące wydarzenia
+        $events = Event::where('event_date', '>=', now())->get();
 
-        if ($reservation) {
-            $reservation->delete();
-            return back()->with('message', 'Rezerwacja została anulowana.');
-        }
+        // Pobieramy wszystkie opinie przypisane do zalogowanego użytkownika
+        $reviews = Review::all();
 
-        return back()->withErrors(['message' => 'Nie masz rezerwacji na to wydarzenie.']);
+        // Przekazujemy wydarzenia i opinie do widoku
+        return view('opinions', compact('events', 'reviews'));
     }
 
-    // Wyświetlanie zapisanych wydarzeń
-    public function myEvents()
-    {
-        $reservations = Reservation::where('user_id', Auth::id())->get();
-        return view('user.events.my-events', compact('reservations'));
-    }
 
-    // Wyświetlanie wydarzeń, na które użytkownik jest zapisany
-    public function waitingList()
-    {
-        $waitingList = WaitingList::where('user_id', Auth::id())->get();
-        return view('user.events.waiting-list', compact('waitingList'));
-    }
+
 }
-

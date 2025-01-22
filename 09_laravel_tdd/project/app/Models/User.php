@@ -2,70 +2,80 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+/**
+ * @template TFactory of \Database\Factories\UserFactory
+ * @property string $role
+ */
+class User extends Authenticatable
 {
-    protected $fillable = ['name', 'email', 'password', 'role'];
-    // Role użytkowników (można dodać enumerację lub stałe)
-    const ROLE_ADMIN = 'admin';
-    const ROLE_GUEST = 'guest';
+    use HasFactory;
+    use Notifiable;
+
     /**
-     * Relacja z rezerwacjami (Gość może mieć wiele rezerwacji)
+     * Wypełnialne atrybuty
      */
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
+    protected $fillable = ['name', 'email', 'password', 'role'];
+
     /**
-     * Relacja z listą oczekujących
+     * Ukryte atrybuty w serializacji
      */
     protected $hidden = [
         'password',
         'remember_token',
     ];
-    public function waitingList()
+
+    /**
+     * Atrybuty rzutowane na inne typy
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed', // Hasło jest hashowane automatycznie
+    ];
+
+    // Role użytkowników
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_GUEST = 'guest';
+
+    /**
+     * @return HasMany<Reservation, User>
+     */
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    /**
+     * Relacja z listą oczekujących
+     *
+     * @return HasMany<WaitingList, User>
+     */
+    public function waitingList(): HasMany
     {
         return $this->hasMany(WaitingList::class);
     }
+
     /**
-     * sprawdzić czy użytkownik to admin
+     * Sprawdzenie, czy użytkownik to admin
+     *
+     * @return bool
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
     }
+
     /**
-     * sprawdzić czy użytkownik to gość
+     * Sprawdzenie, czy użytkownik to gość
+     *
+     * @return bool
      */
-    public function isGuest()
+    public function isGuest(): bool
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
         return $this->role === self::ROLE_GUEST;
-    }
-
-    /**
-     * @return HasMany<Reservation, $this>
-     */
-    public function reservations(): HasMany
-    {
-        return $this->hasMany(Reservation::class);
-    }
-
-    /**
-     * @return HasMany<Reservation, $this>
-     */
-    public function reservations(): HasMany
-    {
-        return $this->hasMany(Reservation::class);
     }
 }

@@ -4,14 +4,14 @@ namespace TestsCodeception\Acceptance;
 
 use TestsCodeception\Support\AcceptanceTester;
 
-class Test02_CancelReservationCest
+class Test04_RegisterEventCest
 {
     public function test(AcceptanceTester $I): void
     {
         $userId = 1; // Możesz dynamicznie pobrać user ID
         $eventId = 1; // Możesz dynamicznie pobrać event ID
 
-        $I->wantTo('cancel a reservation');
+        $I->wantTo('register for an event');
 
         // Log in as a user
         $I->amOnPage('/login');
@@ -19,16 +19,16 @@ class Test02_CancelReservationCest
         $I->fillField('password', 'password'); // Replace with a seeded user password
         $I->click('Login');
 
-        // Go to "My Events" page
-        $I->amOnPage('/events/my-events');
+        // Go to the event registration page
+        $I->amOnPage('/events');
         $I->see('Test Event');
 
-        // Cancel the reservation
-        $I->click('Anuluj rezerwację');
-        $I->see('Rezerwacja została anulowana.');
+        // Register for the event
+        $I->click('Zarejestruj się'); // Button or link to register for the event
+        $I->see('Rejestracja zakończona sukcesem.');
 
-        // Verify the cancellation in the database
-        $I->dontSeeInDatabase('reservations', [
+        // Verify the registration in the database
+        $I->seeInDatabase('reservations', [
             'user_id' => $userId,
             'event_id' => $eventId,
         ]);
