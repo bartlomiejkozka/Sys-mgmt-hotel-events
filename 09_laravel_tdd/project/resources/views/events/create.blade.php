@@ -31,10 +31,10 @@
         <div class="mb-6">
             <label for="max_participants" class="block text-sm font-medium text-gray-700 mb-2">Maksymalna liczba uczestników</label>
             <input type="number" name="max_participants" id="max_participants" min="1" required
-                   class="block w-full px-4 py-2 border rounded-lg focus:ring-[#FF2D20] focus:border-[#FF2D20]">
+                   class="block w-full px-4 py-2 border rounded-lg focus:ring-[#FF2D20] focus:border-[#FF2D20]"> <!--:value="$event->max_participants> -->
             <div class="text-center mt-6">
                 <button type="submit"
-                        class="w-full bg-[#FF2D20] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#E12C1E]">
+                        class="w-full bg-red-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#E12C1E]">
                     Zapisz wydarzenie
                 </button>
             </div>

@@ -29,14 +29,28 @@
                                         </ul>
                                     </div>
                                     <!-- Edit Button for each event -->
-                                    <div class="mt-4">
-                                        <!-- Dummy button, doesn't do anything for now -->
-                                        <button type="button" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
-                                            Edit (Dummy)
-                                        </button>
+                                    <div class="flex">
+                                        <div class="mt-4 p-2">
+                                            <!-- Dummy button, doesn't do anything for now -->
+                                            <button type="button" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
+                                                Edit (Dummy)
+                                            </button>
+                                        </div>
+                                        <div class="mt-4 p-2">
+                                            <!-- Dummy button, doesn't do anything for now -->
+                                            <button type="button" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
+                                                Delete (Dummy)
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
+                        </div>
+                        <!-- Create New Event Button -->
+                        <div class="mt-6">
+                            <a href="events/create" class="inline-block px-6 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300">
+                                Create New Event
+                            </a>
                         </div>
                     </div>
                 </div>
