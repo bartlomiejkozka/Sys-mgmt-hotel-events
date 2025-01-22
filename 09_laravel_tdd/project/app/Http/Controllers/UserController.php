@@ -14,23 +14,25 @@ class UserController extends Controller
     public function home()
     {
         $reservations = Reservation::where('user_id', Auth::id())
-            ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
+            ->join('events', 'reservations.event_id', '=', 'events.id')
             ->get();
-        return view('myevents', compact('reservations'));
+
+        return view('user.home', compact('reservations'));
+
     }
 
     // Wyświetlenie wszystkich dostępnych wydarzeń
     public function events()
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
-        return view('events', compact('events'));
+        return view('user.events', compact('events'));
     }
 
 
     public function form()
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
-        return view('form', compact('events'));
+        return view('user.form', compact('events'));
     }
 
 
@@ -122,7 +124,7 @@ class UserController extends Controller
             ->with('event') // Ładuje szczegóły wydarzenia
             ->get();
 
-        return view('myevents', compact('reservations'));
+        return view('user.myevents', compact('reservations'));
     }
 
     public function opinions()
@@ -134,7 +136,7 @@ class UserController extends Controller
         $reviews = Review::all();
 
         // Przekazujemy wydarzenia i opinie do widoku
-        return view('opinions', compact('events', 'reviews'));
+        return view('user.opinions', compact('events', 'reviews'));
     }
 
     // Wyświetlanie wydarzeń, na które użytkownik jest zapisany
