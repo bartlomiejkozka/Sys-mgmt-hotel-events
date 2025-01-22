@@ -39,7 +39,7 @@ class NotificationController extends Controller
             ])
         ];
 
-        return view('notifications.index')->with('notifications', $dummyNotifications);
+        return view('notifications.index')->with('notifications', Notification::all());
     }
 
     public function create(): View
@@ -56,7 +56,7 @@ class NotificationController extends Controller
 
     public function show(Notification $notification): View
     {
-        return view('notifications.show')->with('book', $notification);
+        return view('notifications.show')->with('notification', $notification);
     }
 
     public function destroy(Notification $notification): RedirectResponse

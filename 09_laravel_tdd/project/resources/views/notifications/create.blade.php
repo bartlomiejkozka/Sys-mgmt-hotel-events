@@ -11,8 +11,8 @@
         </div>
 
         <div class="mb-4">
-            <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Opis powiadomienia</label>
-            <textarea name="description" id="description" rows="4" required
+            <label for="body" class="block text-sm font-medium text-gray-700 mb-2">Opis powiadomienia</label>
+            <textarea name="body" id="body" rows="4" required
                       class="block w-full px-4 py-2 border rounded-lg focus:ring-[#FF2D20] focus:border-[#FF2D20]"></textarea>
         </div>
 
