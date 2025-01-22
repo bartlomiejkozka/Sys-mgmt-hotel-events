@@ -32,7 +32,7 @@ class EventController extends Controller
 
     public function show(Event $event): View
     {
-        return view('events.list')->with('event', $event);
+        return view('events.show')->with('event', $event);
     }
 
     //AdminOnly
