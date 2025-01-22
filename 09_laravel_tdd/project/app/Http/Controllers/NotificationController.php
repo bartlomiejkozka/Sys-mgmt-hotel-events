@@ -51,7 +51,7 @@ class NotificationController extends Controller
     {
         $notification = Notification::create($request->validated());
 
-        return redirect()->route('notifications.show', $notification);
+        return redirect()->route('notifications.index', $notification);
     }
 
     public function show(Notification $notification): View

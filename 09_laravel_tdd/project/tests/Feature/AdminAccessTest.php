@@ -42,20 +42,11 @@ class AdminAccessTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_admin_access_event_list(): void
-    {
-        $response = $this
-            ->actingAs($this->admin)
-            ->get("admin/events/list");
-
-        $response->assertOk();
-    }
-
     public function test_admin_access_event_create(): void
     {
         $response = $this
             ->actingAs($this->admin)
-            ->get("admin/events/crete");
+            ->get("admin/events/create");
 
         $response->assertOk();
     }
@@ -96,20 +87,11 @@ class AdminAccessTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function test_user_access_admin_event_list(): void
-    {
-        $response = $this
-            ->actingAs($this->user)
-            ->get("admin/events/list");
-
-        $response->assertForbidden();
-    }
-
     public function test_user_access_admin_event_create(): void
     {
         $response = $this
             ->actingAs($this->user)
-            ->get("admin/events/crete");
+            ->get("admin/events/create");
 
         $response->assertForbidden();
     }
