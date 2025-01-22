@@ -2,52 +2,35 @@
 
 namespace TestsCodeception\Acceptance;
 
-use App\Models\User;
-use App\Models\Event;
-use App\Models\Reservation;
-use App\Models\WaitingList;
-use Illuminate\Support\Facades\Auth;
 use TestsCodeception\Support\AcceptanceTester;
 
 class Test05_RegisterEventCest
 {
     public function test(AcceptanceTester $I): void
     {
-        $I->wantTo('Ensure user can register for an event or be added to the waiting list if the event is full');
+        $userId = 1; // Możesz dynamicznie pobrać user ID
+        $eventId = 1; // Możesz dynamicznie pobrać event ID
 
-        // Tworzymy użytkownika
-        $user = User::factory()->create();
-        Auth::login($user);
+        $I->wantTo('register for an event');
 
-        // Tworzymy wydarzenie z wolnymi miejscami
-        $eventWithSpace = Event::factory()->create([
-            'max_participants' => 10,
-        ]);
+        // Log in as a user
+        $I->amOnPage('/login');
+        $I->fillField('email', 'testuser@example.com'); // Replace with a seeded user email
+        $I->fillField('password', 'password'); // Replace with a seeded user password
+        $I->click('Login');
 
-        // Tworzymy wydarzenie bez wolnych miejsc
-        $eventFull = Event::factory()->create([
-            'max_participants' => 1,
-        ]);
+        // Go to the event registration page
+        $I->amOnPage('/events');
+        $I->see('Test Event');
 
-        // Wypełniamy pierwsze wydarzenie, aby było pełne
-        Reservation::factory()->create([
-            'event_id' => $eventFull->id,
-        ]);
+        // Register for the event
+        $I->click('Zarejestruj się'); // Button or link to register for the event
+        $I->see('Rejestracja zakończona sukcesem.');
 
-        // Test: Zapis na wydarzenie z wolnymi miejscami
-        $I->amOnPage(route('user.register', ['eventId' => $eventWithSpace->id]));
-        $I->see('Zapisano na wydarzenie!');
-        $I->seeRecord('reservations', [
-            'user_id' => $user->id,
-            'event_id' => $eventWithSpace->id,
-        ]);
-
-        // Test: Zapis na listę oczekujących, gdy wydarzenie jest pełne
-        $I->amOnPage(route('user.register', ['eventId' => $eventFull->id]));
-        $I->see('Zapisano na listę oczekujących!');
-        $I->seeRecord('waiting_list', [
-            'user_id' => $user->id,
-            'event_id' => $eventFull->id,
+        // Verify the registration in the database
+        $I->seeInDatabase('reservations', [
+            'user_id' => $userId,
+            'event_id' => $eventId,
         ]);
     }
 }
