@@ -1,3 +1,3 @@
-<div>
-    <p>Reports x</p>
-</div>
+<x-app-layout>
+    RAPORTS
+</x-app-layout>
