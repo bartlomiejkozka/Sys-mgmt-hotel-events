@@ -1,9 +1,8 @@
 <x-app-layout>
-<x-AdminMenu />
 <h1 class="text-center mt-10 text-3xl font-bold">Utwórz nowe wydarzenie</h1>
 
 <div class="flex justify-center mt-8">
-    <form action="/admin/events/store" method="POST" class="max-w-lg w-full bg-white rounded-lg shadow-md p-6">
+    <form action="{{ route('events.store') }}" method="POST" class="max-w-lg w-full bg-white rounded-lg shadow-md p-6">
         @csrf
         <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Tytuł wydarzenia</label>
