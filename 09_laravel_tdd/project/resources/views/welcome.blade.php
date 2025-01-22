@@ -11,8 +11,8 @@
     <header class="bg-gray-800 h-1/2 flex items-center">
         @if (Route::has('login'))
             <nav class="flex w-full justify-center px-6 h-16">
-                <a href="{{ route('login') }}" class="rounded-md px-4 py-3 text-4xl font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Log in</a>
-                <a href="{{ route('register') }}" class="rounded-md ml-4 px-4 py-3 text-4xl font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Register</a>
+                <a href="{{ route('login') }}" class="rounded-md px-4 py-3 text-xl font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Log in</a>
+                <a href="{{ route('register') }}" class="rounded-md ml-4 px-4 py-3 text-xl font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Register</a>
             </nav>
         @endif
     </header>

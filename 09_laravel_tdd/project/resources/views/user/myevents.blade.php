@@ -8,8 +8,8 @@
     <title>Laravel</title>
 </head>
 <body>
-<x-Menu/>
-<div class="flex flex-col items-center">
+    <x-Menu/>
+    <div class="flex flex-col items-center gap-2 mt-10">
     @foreach($reservations as $reservation)
         <div class="max-w-lg rounded overflow-hidden border border-gray-200">
             <div class="px-6 py-4">
