@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -32,7 +33,16 @@ class EventController extends Controller
 
     public function show(Event $event): View
     {
-        return view('events.show')->with('event', $event);
+        $users = DB::table('reservations')
+            ->join('users', 'users.id', '=', 'reservations.user_id')
+            ->where('reservations.event_id', $event->id)
+            ->select('users.*')
+            ->get();
+
+        return view('events.show', [
+            'event' => $event,
+            'users' => $users,
+        ]);
     }
 
     //AdminOnly
