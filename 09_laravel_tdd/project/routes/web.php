@@ -14,9 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/home', [UserController::class, 'home'])->name('home');
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -49,7 +47,7 @@ Route::get('/opinions', [UserController::class, 'opinions'])->name('opinions');
 
 // Trasa do dashboardu użytkownika
 Route::get('/home', function () {
-    return view('home');
+    return view('user.home');
 })->middleware(['auth', 'verified'])->name('home');
 
 // Trasy związane z profilem użytkownika

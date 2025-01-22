@@ -35,7 +35,7 @@
             <form action="{{ route('cancel.reservation', $reservation->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" style="background-color: red; color: white; padding: 8px 16px; border-radius: 4px;">Cancel</button>
+                <button type="submit" style="background-color: red; color: white; padding: 8px 16px; border-radius: 4px; margin: 10px;">Cancel</button>
             </form>
         </div>
     @endforeach

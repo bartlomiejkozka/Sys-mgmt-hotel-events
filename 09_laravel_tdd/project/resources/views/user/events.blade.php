@@ -6,12 +6,17 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Laravel</title>
+    <style>
+        .event{
+            width: 500px;
+        }
+    </style>
 </head>
 <body>
     <x-Menu/>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center gap-2 mt-10">
         @foreach($events as $event)
-        <div class="max-w-lg rounded overflow-hidden border border-gray-200">
+        <div class="event rounded overflow-hidden border border-gray-200">
             <div class="px-6 py-4">
                 <div class="font-bold text-xl mb-2">{{ $event->name }}</div>
                     <p class="text-gray-700 text-base">

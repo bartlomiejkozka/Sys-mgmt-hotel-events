@@ -34,7 +34,7 @@ class EventController extends Controller
             ->with('event') // Ładuje szczegóły wydarzenia
             ->get();
 
-        return view('myevents', compact('reservations'));
+        return view('user.myevents', compact('reservations'));
     }
 
     // Anulowanie rezerwacji
@@ -109,13 +109,13 @@ class EventController extends Controller
     public function events()
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
-        return view('events', compact('events'));
+        return view('user.events', compact('events'));
     }
 
 
     public function form()
     {
         $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
-        return view('form', compact('events'));
+        return view('user.form', compact('events'));
     }
 }
