@@ -33,7 +33,7 @@
                                         <div class="mt-4 p-2">
                                             <!-- Edit Button -->
                                             <a href="{{ route('events.edit', $event->id) }}" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
-                                                Edit
+                                                Edytuj wydarzenie
                                             </a>
                                         </div>
                                         <div class="mt-4 p-2">
@@ -42,7 +42,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
-                                                    Delete
+                                                    Usuń wydarzenie
                                                 </button>
                                             </form>
                                         </div>
@@ -54,7 +54,7 @@
                         <!-- Create New Event Button -->
                         <div class="mt-6">
                             <a href="events/create" class="inline-block px-6 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300">
-                                Create New Event
+                                Utwórz nowe wydarzenie
                             </a>
                         </div>
                     </div>

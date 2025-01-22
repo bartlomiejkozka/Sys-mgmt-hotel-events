@@ -18,13 +18,13 @@
                                         <div class="mt-4 p-2">
                                             <!-- Dummy button, doesn't do anything for now -->
                                             <button type="button" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
-                                                Edit (Dummy)
+                                                Edytuj powiadomienie
                                             </button>
                                         </div>
                                         <div class="mt-4 p-2">
                                             <!-- Dummy button, doesn't do anything for now -->
                                             <button type="button" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
-                                                Delete (Dummy)
+                                                Usuń powiadomienie
                                             </button>
                                         </div>
                                     </div>
@@ -33,8 +33,8 @@
 
                         <!-- Create New Notification Button -->
                         <div class="mt-6">
-                            <a href="notifications/create" class="inline-block px-6 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300">
-                                Create New Notification
+                            <a href="/admin/notifications" class="inline-block px-6 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300">
+                                Wróć
                             </a>
                         </div>
                     </div>

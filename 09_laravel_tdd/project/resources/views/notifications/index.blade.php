@@ -15,7 +15,12 @@
                                     <p class="text-gray-700 dark:text-gray-300">{{ $notification->body }}</p>
                                     <!-- Edit and Delete Buttons -->
                                     <div class="flex">
-
+                                        <div class="mt-4 p-2">
+                                            <!-- Edit Button -->
+                                            <a href="{{ route('notifications.edit', $notification->id) }}" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
+                                                Edit
+                                            </a>
+                                        </div>
                                         <div class="mt-4 p-2">
                                             <!-- Delete Button -->
                                             <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this notification?');">
@@ -30,12 +35,13 @@
                                 </div>
                             @endforeach
 
+
                         </div>
 
                         <!-- Create New Notification Button -->
                         <div class="mt-6">
                             <a href="notifications/create" class="inline-block px-6 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300">
-                                Create New Notification
+                                Utwórz nowe powiadomienie
                             </a>
                         </div>
                     </div>
