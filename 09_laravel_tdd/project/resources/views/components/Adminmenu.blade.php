@@ -9,7 +9,7 @@
                     <a href="/admin" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Strona główna</a>
                     <a href="/admin/events" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Lista wydarzeń</a>
                     <a href="/admin/notifications" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Powiadomienia</a>
-                    <a href="/admin/opinions" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Opinie i oceny</a>
+                    <a href="/admin/reports" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Raporty</a>
                 </div>
             </div>
             <form method="POST" action="{{ route('logout') }}">

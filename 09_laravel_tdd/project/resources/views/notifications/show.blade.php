@@ -16,15 +16,6 @@
                                     <!-- Edit Button for each notification -->
                                     <div class="flex">
                                         <div class="mt-4 p-2">
-                                            <form action="{{ route('notifications.edit', $notification) }}" method="GET">
-                                                @csrf
-                                                @method('GET')
-                                                <button type="submit" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
-                                                    Edytuj
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="mt-4 p-2">
                                             <!-- Delete Button -->
                                             <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this notification?');">
                                                 @csrf

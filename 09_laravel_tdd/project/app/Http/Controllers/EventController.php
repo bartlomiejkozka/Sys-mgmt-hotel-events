@@ -33,11 +33,34 @@ class EventController extends Controller
 
     public function show(Event $event): View
     {
-        $users = DB::table('reservations')
-            ->join('users', 'users.id', '=', 'reservations.user_id')
-            ->where('reservations.event_id', $event->id)
-            ->select('users.*')
-            ->get();
+        $users = collect([
+            (object)[
+                'id' => 1,
+                'name' => 'John Doe',
+                'email' => 'john.doe@example.com',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            (object)[
+                'id' => 2,
+                'name' => 'Jane Smith',
+                'email' => 'jane.smith@example.com',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            (object)[
+                'id' => 3,
+                'name' => 'Alice Johnson',
+                'email' => 'alice.johnson@example.com',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+
+        return view('events.show', [
+            'event' => $event,
+            'users' => $users,
+        ]);
 
         return view('events.show', [
             'event' => $event,

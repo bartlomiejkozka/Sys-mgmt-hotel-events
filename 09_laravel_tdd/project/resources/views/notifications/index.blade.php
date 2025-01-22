@@ -16,23 +16,10 @@
                                     <!-- Edit and Delete Buttons -->
                                     <div class="flex">
                                         <div class="mt-4 p-2">
-                                            <form action="{{ route('notifications.edit', $notification) }}" method="GET">
-                                                @csrf
-                                                @method('GET')
-                                                <button type="submit" class="inline-block px-6 py-2 text-white bg-blue-400 rounded-lg">
-                                                    Edytuj
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="mt-4 p-2">
-                                            <!-- Delete Button -->
-                                            <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this notification?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="inline-block px-6 py-2 text-white bg-red-400 rounded-lg">
-                                                    Usuń
-                                                </button>
-                                            </form>
+                                            <!-- Edit Button -->
+                                            <a href="{{ route('notifications.show', $notification->id) }}" class="inline-block px-6 py-2 text-white bg-yellow-400 rounded-lg">
+                                                Pokaż powiadomienie
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
