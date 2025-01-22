@@ -11,10 +11,10 @@ class Test04_RegisterEventCest
         $I->wantTo('log in as a registered user');
 
         $I->amOnPage('/register');
-        $I->fillField('name', 'Test User');
-        $I->fillField('email', 'newuser@example.com');
-        $I->fillField('password', 'securepassword');
-        $I->fillField('password_confirmation', 'securepassword');
+        $I->fillField('name', 'register User');
+        $I->fillField('email', 'registeruser@example.com');
+        $I->fillField('password', '123456789');
+        $I->fillField('password_confirmation', '123456789');
         $I->click('Register');
         $I->click('Log Out');
 
@@ -23,8 +23,8 @@ class Test04_RegisterEventCest
         $I->amOnPage('/login');
 
         // Fill in the login form
-        $I->fillField('email', 'newuser@example.com');
-        $I->fillField('password', 'securepassword');
+        $I->fillField('email', 'registeruser@example.com');
+        $I->fillField('password', '123456789');
         $I->click('Log in');
         $I->amOnPage('/form');
 
