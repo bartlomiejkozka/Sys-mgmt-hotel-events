@@ -27,7 +27,7 @@
                                             <li class="text-gray-600 dark:text-gray-400">
                                                 <div class="flex flex-row gap-4">
                                                     {{ $user->name }}
-                                                    <form action="{{ route('events.show', $event->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this user?');">
+                                                    <form action="{{ route('reservations.destroy', [$user, $event]) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this user?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="hover:bg-gray-100 px-2 py-1 rounded-sm transition-all duration-200 text-red-500 hover:text-red-700">

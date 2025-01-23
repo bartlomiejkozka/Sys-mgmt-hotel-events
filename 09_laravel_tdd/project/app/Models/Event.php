@@ -38,4 +38,8 @@ class Event extends Model
         return $this->hasMany(Reservation::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'reservations');
+    }
 }

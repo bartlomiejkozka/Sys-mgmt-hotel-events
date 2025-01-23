@@ -40,36 +40,12 @@ class EventController extends Controller
 
     public function show(Event $event): View
     {
-        $users = collect([
-            (object)[
-                'id' => 1,
-                'name' => 'John Doe',
-                'email' => 'john.doe@example.com',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 2,
-                'name' => 'Jane Smith',
-                'email' => 'jane.smith@example.com',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 3,
-                'name' => 'Alice Johnson',
-                'email' => 'alice.johnson@example.com',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        $users = $event->users()->get();
 
         return view('events.show', [
             'event' => $event,
             'users' => $users,
         ]);
-
-
     }
 
     //AdminOnly
