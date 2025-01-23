@@ -9,7 +9,7 @@
     </h1>
 
     <div class="flex justify-center mt-8">
-        <form action="{{ route('notifications.store') }}" method="POST"
+        <form id="notification-form" action="{{ route('notifications.store') }}" method="POST"
               class="max-w-xl w-full bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-700 rounded-xl shadow-lg p-6 transform transition duration-300 hover:scale-105">
             @csrf
             <div class="mb-5">
@@ -18,14 +18,12 @@
                        class="block w-full px-3 py-2 border rounded-lg shadow-sm text-gray-800 dark:text-gray-100 bg-gray-50 dark:bg-zinc-800 focus:ring-2 focus:ring-[#FF2D20] focus:border-[#FF2D20]">
             </div>
 
-
             <div class="mb-5">
                 <label for="body" class="block text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">Opis powiadomienia</label>
                 <textarea name="body" id="body" rows="4" required
                           class="block w-full px-3 py-2 border rounded-lg shadow-sm text-gray-800 dark:text-gray-100 bg-gray-50 dark:bg-zinc-800 focus:ring-2 focus:ring-[#FF2D20] focus:border-[#FF2D20]"></textarea>
             </div>
 
-            <!-- Przycisk zapisz -->
             <div class="text-center">
                 <button type="submit"
                         class="w-full bg-gradient-to-r from-[#FF7A7A] to-[#FF2D20] text-white px-5 py-2 rounded-lg font-semibold shadow-lg hover:shadow-2xl transform transition duration-300 hover:scale-105">
@@ -39,4 +37,27 @@
             </div>
         </form>
     </div>
+
+    <script>
+        let isFormChanged = false;
+        // funkcja do wykrywania formularzu
+        const form = document.getElementById('notification-form');
+        form.addEventListener('input', () => {
+            isFormChanged = true;
+        });
+
+        const formSubmitButton = form.querySelector('button[type="submit"]');
+        formSubmitButton.addEventListener('click', () => {
+            isFormChanged = false;
+        });
+
+        // do proby opuszczenia strony
+        window.addEventListener('beforeunload', (event) => {
+            if (isFormChanged) {
+                const confirmationMessage = 'Masz niezapisane zmiany. Jeśli opuścisz stronę, zmiany zostaną utracone.';
+                (event || window.event).returnValue = confirmationMessage;
+                return confirmationMessage;
+            }
+        });
+    </script>
 </x-app-layout>

@@ -69,10 +69,7 @@ class EventController extends Controller
             'users' => $users,
         ]);
 
-        return view('events.show', [
-            'event' => $event,
-            'users' => $users,
-        ]);
+
     }
 
     //AdminOnly
@@ -86,7 +83,7 @@ class EventController extends Controller
     {
         $event->update($request->validated());
 
-        return redirect()->route('books.show', $event);
+        return redirect()->route('events.show', $event);
     }
 
     //AdminOnly

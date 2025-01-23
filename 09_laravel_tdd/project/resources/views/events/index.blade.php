@@ -8,7 +8,7 @@
                     </h1>
                 </main>
                 <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
-                    <!-- All events with all their attributes -->
+
                     <div class="flex flex-col items-start gap-6 overflow-hidden rounded-xl bg-white p-6 shadow-2xl ring-1 ring-white/[0.1] transition-all duration-300 transform hover:scale-102 hover:ring-[#FF2D20] focus:outline-none focus-visible:ring-[#FF2D20] lg:p-10 lg:pb-10 dark:bg-zinc-800 dark:ring-zinc-700 dark:hover:ring-[#FF2D20] dark:text-white">
                         <div class="space-y-6">
                             @foreach($events->where('event_date', '>=', now()) as $event)
@@ -22,7 +22,6 @@
                                     <!-- Edit and Delete Buttons -->
                                     <div class="flex">
                                         <div class="mt-4 p-2">
-                                            <!-- Edit Button -->
                                             <a href="{{ route('events.show', $event->id) }}" class="inline-block px-6 py-2 text-white bg-yellow-400 rounded-lg shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
                                                 Pokaż wydarzenie
                                             </a>
@@ -33,7 +32,6 @@
 
                         </div>
 
-                        <!-- Create New Event Button -->
                         <div class="mt-6">
                             <a href="events/create" class="inline-block px-6 py-2 text-white bg-green-500 rounded-lg shadow-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-105">
                                 Utwórz nowe wydarzenie

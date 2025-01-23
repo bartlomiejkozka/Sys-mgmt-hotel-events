@@ -14,7 +14,7 @@
                 </main>
                 <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                     <!-- Najbliższe wydarzenia (pierwsze 5) -->
-                    <div class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-gradient-to-r from-[#FF7A7A] via-[#FF2D20] to-[#FF7A7A] p-6 shadow-lg transition duration-300 hover:shadow-xl hover:scale-105">
+                    <div class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 p-6 shadow-lg transition duration-300 hover:shadow-xl hover:scale-105">
 
                     <div class="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#FF2D20]" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
@@ -43,9 +43,9 @@
 
                     </div>
 
-                    <!-- Przyciski po prawej stronie -->
+
                     <div class="flex flex-col gap-6">
-                        <!-- Utwórz nowe wydarzenie -->
+
                         <a
                             href="/admin/events/create"
                             class="flex items-center justify-center gap-4 rounded-lg bg-gradient-to-r from-[#FF7A7A] to-[#FF2D20] p-6 shadow-lg text-white transition duration-300 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FF2D20]/50"
@@ -56,7 +56,7 @@
                             <span class="text-lg font-semibold">Utwórz nowe wydarzenie</span>
                         </a>
 
-                        <!-- Zobacz wszystkie wydarzenia -->
+
                         <a
                             href="/admin/events"
                             class="flex items-center justify-center gap-4 rounded-lg bg-gradient-to-r from-[#FFC371] to-[#FF5F6D] p-6 shadow-lg text-white transition duration-300 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FF5F6D]/50"
@@ -67,7 +67,7 @@
                             <span class="text-lg font-semibold">Zobacz wszystkie wydarzenia</span>
                         </a>
 
-                        <!-- Ustaw powiadomienia -->
+
                         <a
                             href="/admin/notifications"
                             class="flex items-center justify-center gap-4 rounded-lg bg-gradient-to-r from-[#76c7c0] to-[#34a3a1] p-6 shadow-lg text-white transition duration-300 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#34a3a1]/50"

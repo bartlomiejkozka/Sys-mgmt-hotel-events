@@ -8,7 +8,7 @@
                     </h1>
                 </main>
                 <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
-                    <!-- Event Card -->
+
                     <div class="flex flex-col items-start gap-6 overflow-hidden rounded-xl bg-white p-8 shadow-lg ring-1 ring-gray-200 hover:ring-[#FF2D20] transition duration-300 transform hover:scale-102 lg:p-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:ring-[#FF2D20] dark:hover:text-white/80">
                         <div class="space-y-6">
 
@@ -41,12 +41,10 @@
                                 </div>
 
                                 <div class="flex gap-4 mt-6">
-                                    <!-- Edit Button -->
                                     <a href="{{ route('events.edit', $event->id) }}" class="inline-block px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-200 transform hover:scale-105 shadow-md">
                                         Edytuj wydarzenie
                                     </a>
 
-                                    <!-- Delete Button -->
                                     <form action="{{ route('events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');">
                                         @csrf
                                         @method('DELETE')
@@ -59,7 +57,6 @@
 
                         </div>
 
-                        <!-- Back Button -->
                         <div class="mt-6">
                             <a href="/admin/events" class="inline-block px-6 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300 transform hover:scale-105 shadow-lg">
                                 Wróć

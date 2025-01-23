@@ -9,7 +9,7 @@
     </h1>
 
     <div class="flex justify-center mt-8">
-        <form action="{{ route('events.store') }}" method="POST" class="max-w-xl w-full bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-700 rounded-xl shadow-lg p-6 transform transition duration-300 hover:scale-105">
+        <form id="event-form" action="{{ route('events.store') }}" method="POST" class="max-w-xl w-full bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-700 rounded-xl shadow-lg p-6 transform transition duration-300 hover:scale-105">
             @csrf
             <div class="mb-5">
                 <label for="name" class="block text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">Tytuł wydarzenia</label>
@@ -61,4 +61,27 @@
             </div>
         </form>
     </div>
+
+    <script>
+        let isFormChanged = false;
+        // funkcja do wykrywania formularzu
+        const form = document.getElementById('event-form');
+        form.addEventListener('input', () => {
+            isFormChanged = true;
+        });
+
+        const formSubmitButton = form.querySelector('button[type="submit"]');
+        formSubmitButton.addEventListener('click', () => {
+            isFormChanged = false;
+        });
+
+        // do proby opuszczenia strony
+        window.addEventListener('beforeunload', (event) => {
+            if (isFormChanged) {
+                const confirmationMessage = 'Masz niezapisane zmiany. Jeśli opuścisz stronę, zmiany zostaną utracone.';
+                (event || window.event).returnValue = confirmationMessage;
+                return confirmationMessage;
+            }
+        });
+    </script>
 </x-app-layout>
