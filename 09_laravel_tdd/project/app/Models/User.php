@@ -2,34 +2,27 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @template TFactory of \Database\Factories\UserFactory
+ * @property string $role
+ */
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory;
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Wypełnialne atrybuty
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password', 'role'];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Ukryte atrybuty w serializacji
      */
     protected $hidden = [
         'password',
@@ -37,23 +30,52 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Atrybuty rzutowane na inne typy
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed', // Hasło jest hashowane automatycznie
+    ];
+
+    // Role użytkowników
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_GUEST = 'guest';
 
     /**
-     * @return HasMany<Reservation, $this>
+     * @return HasMany<Reservation, User>
      */
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    /**
+     * Relacja z listą oczekujących
+     *
+     * @return HasMany<WaitingList, User>
+     */
+    public function waitingList(): HasMany
+    {
+        return $this->hasMany(WaitingList::class);
+    }
+
+    /**
+     * Sprawdzenie, czy użytkownik to admin
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    /**
+     * Sprawdzenie, czy użytkownik to gość
+     *
+     * @return bool
+     */
+    public function isGuest(): bool
+    {
+        return $this->role === self::ROLE_GUEST;
     }
 }

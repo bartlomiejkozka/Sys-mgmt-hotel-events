@@ -42,4 +42,9 @@ class Event extends Model
     {
         return $this->belongsToMany(User::class, 'reservations');
     }
+    public function isFull(): bool
+    {
+        return $this->reservations()->count() >= $this->max_participants;
+    }
+
 }

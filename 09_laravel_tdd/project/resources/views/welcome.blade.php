@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Witamy na stronie</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        @media screen and (max-width: 768px) {
+            .new{
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50 h-full m-0 p-0">
 <div class="flex flex-col bg-gray-50 min-h-screen">
@@ -18,18 +25,18 @@
     </header>
 
     <main class="flex-1 bg-gray-50 flex flex-col justify-center items-center text-center animate-fade-in w-4/5 mx-auto">
-        <h1 class="text-4xl font-bold mb-4">Witamy na stronie internetowej naszego hotelu</h1>
+        <h1 class="text-4xl font-bold mb-4 mt-4">Witamy na stronie internetowej naszego hotelu</h1>
         <p class="text-lg dark:text-white/70">Zarejestruj się, aby sprawdzić naszą ofertę</p>
-        <div class="flex space-x-4 mt-6">
-            <div class="p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <div class="flex new my-3">
+            <div class="max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Niedługo ferie zimowe</h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400">Nie masz pomysłu na ferie? Zapraszamy do nas! Mamy konkurencyjne ceny noclegów, świetna lokalizacja oraz wiele atrakcji!</p>
             </div>
-            <div class="p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div class="max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Otwarcie kasyna w naszym hotelu</h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400">Zapraszamy na otwarcie kasyna w budynku naszego hotelu, które odbędzie się 31 stycznia 2025 roku. Uroczystość poprowadzi jeden z właścicieli hotelu.</p>
             </div>
-            <div class="p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div class="max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Uważaj na oszustwa</h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400">Oszuści podszywają się pod nas chcąc wyłudzić poufne dane</p>
             </div>

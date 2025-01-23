@@ -2,71 +2,120 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEventRequest;
-use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class EventController extends Controller
 {
     public function index(): View
     {
-
-        $events = Event::where('event_date', '>=', now())
-        ->orderBy('event_date', 'asc')
-        ->get();
-
-        return view('events.index')->with('events', $events);
+        return view('events.index');
     }
 
-
-
-    //AdminOnly
     public function create(): View
     {
         return view('events.create');
     }
 
-    //AdminOnly
-    public function store(StoreEventRequest $request): RedirectResponse
+    public function show(): View
     {
-        $event = Event::create($request->validated());
-
-        return redirect()->route('events.show', $event);
+        return view('events.list');
     }
 
-    public function show(Event $event): View
+    // Wyświetlanie zapisanych wydarzeń
+    public function myEvents()
     {
-        $users = $event->users()->get();
+        $reservations = Reservation::where('user_id', Auth::id())
+            ->join('events', 'reservations.event_id', '=', 'events.id')
+            ->select('reservations.*') // Pobiera tylko dane z tabeli 'reservations'
+            ->with('event') // Ładuje szczegóły wydarzenia
+            ->get();
 
-        return view('events.show', [
-            'event' => $event,
-            'users' => $users,
+        return view('user.myevents', compact('reservations'));
+    }
+
+    // Anulowanie rezerwacji
+    public function cancel($id)
+    {
+        $reservation = Reservation::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if ($reservation) {
+            $reservation->delete();
+            return redirect()->back()->with('success', 'Reservation canceled successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Reservation not found.');
+    }
+
+    public function register(Request $request)
+    {
+        // Sprawdzenie, czy użytkownik jest zalogowany
+        if (!Auth::check()) {
+            return redirect()->route('login')
+                ->withErrors(['message' => 'Musisz być zalogowany, aby zarejestrować się na wydarzenie.']);
+        }
+
+        // Walidacja danych
+        $validated = $request->validate([
+            'event_id' => 'required|exists:events,id',
         ]);
+
+        $eventId = $validated['event_id'];
+        $userId = Auth::id();
+
+        // Sprawdzenie, czy użytkownik już jest zapisany na wydarzenie
+        $exists = Reservation::where('user_id', $userId)
+            ->where('event_id', $eventId)
+            ->exists();
+
+        if ($exists) {
+            return redirect()
+                ->back()
+                ->withErrors(['event_id' => 'Już jesteś zapisany na to wydarzenie.']);
+        }
+
+        // Rejestracja na wydarzenie
+        Reservation::create([
+            'user_id' => $userId,
+            'event_id' => $eventId,
+        ]);
+
+        return redirect()->route('form')->with('message', 'Zarejestrowano na wydarzenie!');
     }
 
-    //AdminOnly
-    public function edit(Event $event): View
+    public function store(Request $request)
     {
-        return view('events.edit')->with('event', $event);
+        // Walidacja danych
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'event_name' => 'required|string|max:255',
+        ]);
+
+        // Możesz tutaj zapisać dane do bazy danych lub wykonać inne operacje
+        // Na przykład:
+        // Reservation::create($validatedData);
+
+        // Powrót z komunikatem o sukcesie
+        return redirect()->route('form')->with('message', 'Rejestracja przebiegła pomyślnie!');
     }
 
-    //AdminOnly
-    public function update(UpdateEventRequest $request, Event $event): RedirectResponse
+    public function events()
     {
-        $event->update($request->validated());
-
-        return redirect()->route('events.show', $event);
+        $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
+        return view('user.events', compact('events'));
     }
 
-    //AdminOnly
-    public function destroy(Event $event): RedirectResponse
-    {
-        $event->delete();
 
-        return redirect()->route('events.index');
+    public function form()
+    {
+        $events = Event::where('event_date', '>=', now())->get(); // Pobieranie nadchodzących wydarzeń
+        return view('user.form', compact('events'));
     }
 }
