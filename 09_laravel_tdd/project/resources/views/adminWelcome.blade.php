@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 mt-4">
         <div class="relative min-h-[70dvh] flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
@@ -15,21 +14,29 @@
                 </main>
                 <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                     <!-- Najbliższe wydarzenia (pierwsze 5) -->
-                    <div class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
-                        <div class="flex items-center gap-2">
+                    <div class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-gradient-to-r from-[#FF7A7A] via-[#FF2D20] to-[#FF7A7A] p-6 shadow-lg transition duration-300 hover:shadow-xl hover:scale-105">
+
+                    <div class="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#FF2D20]" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4M6 6h.01M4 14.01L4 14" />
                             </svg>
-                            <h2 class="text-2xl font-semibold">Najbliższe wydarzenia</h2>
+                            <h2 class="text-2xl font-bold text-black text-center">Najbliższe wydarzenia:</h2>
+
                         </div>
                         <ul class="list-disc pl-5">
                             @foreach($events->where('event_date', '>=', now())->take(5) as $event)
                                 <li class="mb-4">
-                                    <!-- Link to individual event -->
-                                    <a href="{{ url('/admin/events/' . $event->id) }}" class="block">
-                                        <div class="font-bold text-lg hover:text-[#FF2D20]">{{ $event->title }}</div>
-                                        <p class="text-gray-700 dark:text-gray-300">{{ $event->name }}</p>
+                                    <a href="{{ url('/admin/events/' . $event->id) }}" class="block group">
+                                        <div class="font-bold text-lg text-black transition duration-300 group-hover:text-green-500">
+                                            {{ $event->title }}
+                                        </div>
+                                        <p class="font-bold text-black transition duration-300 group-hover:text-green-500">
+                                            {{ $event->name }}
+                                        </p>
                                     </a>
+
+
+
                                 </li>
                             @endforeach
                         </ul>
