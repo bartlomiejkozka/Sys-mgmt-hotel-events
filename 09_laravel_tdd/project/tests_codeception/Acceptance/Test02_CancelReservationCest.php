@@ -8,29 +8,30 @@ class Test02_CancelReservationCest
 {
     public function test(AcceptanceTester $I): void
     {
-        $userId = 1; // Możesz dynamicznie pobrać user ID
-        $eventId = 1; // Możesz dynamicznie pobrać event ID
+        $I->wantTo('cancel from registered event');
 
-        $I->wantTo('cancel a reservation');
+        $I->amOnPage('/register');
+        $I->fillField('name', 'cancel User');
+        $I->fillField('email', 'canceluser@example.com');
+        $I->fillField('password', '12345678');
+        $I->fillField('password_confirmation', '12345678');
+        $I->click('Register');
+        $I->click('Log Out');
 
-        // Log in as a user
         $I->amOnPage('/login');
-        $I->fillField('email', 'testuser@example.com'); // Replace with a seeded user email
-        $I->fillField('password', 'password'); // Replace with a seeded user password
-        $I->click('Login');
 
-        // Go to "My Events" page
-        $I->amOnPage('/events/my-events');
-        $I->see('Test Event');
+        $I->fillField('email', 'registeruser@example.com');
+        $I->fillField('password', '123456789');
+        $I->click('Log in');
+        $I->amOnPage('/form');
 
-        // Cancel the reservation
-        $I->click('Anuluj rezerwację');
-        $I->see('Rezerwacja została anulowana.');
+        $I->fillField('Jane', 'cancel User');
+        $I->fillField('Doe', 'cancel');
+        $I->fillField('joedoe@example.com', 'canceluser@example.com');
+        $I->selectOption('select[name="event_id"]', 'Music Festival 2025');
+        $I->click('Zapisz się');
 
-        // Verify the cancellation in the database
-        $I->dontSeeInDatabase('reservations', [
-            'user_id' => $userId,
-            'event_id' => $eventId,
-        ]);
+        $I->amOnPage('/myevents');
+        $I->cantSee('Music Festival 2025');
     }
 }

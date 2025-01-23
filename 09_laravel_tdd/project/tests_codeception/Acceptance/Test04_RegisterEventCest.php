@@ -8,29 +8,34 @@ class Test04_RegisterEventCest
 {
     public function test(AcceptanceTester $I): void
     {
-        $userId = 1; // Możesz dynamicznie pobrać user ID
-        $eventId = 1; // Możesz dynamicznie pobrać event ID
+        $I->wantTo('log in as a registered user');
 
-        $I->wantTo('register for an event');
+        $I->amOnPage('/register');
+        $I->fillField('name', 'register User');
+        $I->fillField('email', 'registeruser@example.com');
+        $I->fillField('password', '123456789');
+        $I->fillField('password_confirmation', '123456789');
+        $I->click('Register');
+        $I->click('Log Out');
 
-        // Log in as a user
+
+        // Go to the login page
         $I->amOnPage('/login');
-        $I->fillField('email', 'testuser@example.com'); // Replace with a seeded user email
-        $I->fillField('password', 'password'); // Replace with a seeded user password
-        $I->click('Login');
 
-        // Go to the event registration page
-        $I->amOnPage('/events');
-        $I->see('Test Event');
+        // Fill in the login form
+        $I->fillField('email', 'registeruser@example.com');
+        $I->fillField('password', '123456789');
+        $I->click('Log in');
+        $I->amOnPage('/form');
 
-        // Register for the event
-        $I->click('Zarejestruj się'); // Button or link to register for the event
-        $I->see('Rejestracja zakończona sukcesem.');
+        $I->fillField('Jane', 'Test User');
+        $I->fillField('Doe', 'Testowski');
+        $I->fillField('joedoe@example.com', 'newuser@example.com');
+        $I->selectOption('select[name="event_id"]', 'Music Festival 2025');
+        $I->click('Zapisz się');
 
-        // Verify the registration in the database
-        $I->seeInDatabase('reservations', [
-            'user_id' => $userId,
-            'event_id' => $eventId,
-        ]);
+        $I->amOnPage('/myevents');
+        $I->see('Music Festival 2025');
+
     }
 }

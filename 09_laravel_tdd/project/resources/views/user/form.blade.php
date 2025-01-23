@@ -82,7 +82,7 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
                 <label for="event_id" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    Wybierz wydarzenie
+                    Dostępne Wydarzenia
                 </label>
                 <select name="event_id" id="event_id" class="appearance-none block w-full bg-gray-200 text-gray-700 border @error('event_id') border-red-500 @else border-gray-200 @enderror rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="">Wybierz wydarzenie</option>

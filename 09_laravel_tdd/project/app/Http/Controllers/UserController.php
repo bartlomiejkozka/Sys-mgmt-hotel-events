@@ -14,12 +14,12 @@ class UserController extends Controller
     public function home()
     {
         $reservations = Reservation::where('user_id', Auth::id())
-            ->join('events', 'reservations.event_id', '=', 'events.id') // Łączy tabelę 'reservations' z tabelą 'events'
+            ->join('events', 'reservations.event_id', '=', 'events.id')
             ->get();
-        return view('myevents', compact('reservations'));
-    }
 
-    // Wyświetlenie wszystkich dostępnych wydarzeń
+        return view('user.home', compact('reservations'));
+
+    }
 
 
     public function addReview(Request $request)
@@ -42,6 +42,11 @@ class UserController extends Controller
         // Przekierowanie po zapisaniu opinii
         return redirect()->route('opinions')->with('message', 'Opinia została dodana!');
     }
+
+
+
+
+
     public function opinions()
     {
         // Pobieramy wszystkie nadchodzące wydarzenia
@@ -51,7 +56,14 @@ class UserController extends Controller
         $reviews = Review::all();
 
         // Przekazujemy wydarzenia i opinie do widoku
-        return view('opinions', compact('events', 'reviews'));
+        return view('user.opinions', compact('events', 'reviews'));
+    }
+
+    // Wyświetlanie wydarzeń, na które użytkownik jest zapisany
+    public function waitingList()
+    {
+        $waitingList = WaitingList::where('user_id', Auth::id())->get();
+        return view('user.events.waiting-list', compact('waitingList'));
     }
 
 
