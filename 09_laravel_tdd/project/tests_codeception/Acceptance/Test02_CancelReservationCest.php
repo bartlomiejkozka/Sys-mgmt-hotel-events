@@ -32,7 +32,7 @@ class Test02_CancelReservationCest
         $I->click('Zapisz się');
 
         $I->amOnPage('/myevents');
-        $I->click("button[type='submit'][style*='background-color: red']");
+        $I->click('button[type="submit"]');
         $I->cantSee('Music Festival 2025');
     }
 }

@@ -17,6 +17,7 @@ class Test03_OpinionCest
         $I->fillField('password_confirmation', '123456782');
         $I->click('Register');
 
+        $I->amOnPage('/form');
         $I->fillField('Jane', 'Test User');
         $I->fillField('Doe', 'Testowski');
         $I->fillField('joedoe@example.com', 'opinionuser@example.com');
