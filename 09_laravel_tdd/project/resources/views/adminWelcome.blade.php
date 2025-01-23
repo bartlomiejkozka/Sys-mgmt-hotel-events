@@ -23,12 +23,12 @@
                             <h2 class="text-2xl font-semibold">Najbliższe wydarzenia</h2>
                         </div>
                         <ul class="list-disc pl-5">
-                            @foreach($events->take(5) as $event)
+                            @foreach($events->where('event_date', '>=', now())->take(5) as $event)
                                 <li class="mb-4">
                                     <!-- Link to individual event -->
                                     <a href="{{ url('/admin/events/' . $event->id) }}" class="block">
                                         <div class="font-bold text-lg hover:text-[#FF2D20]">{{ $event->title }}</div>
-                                        <p class="text-gray-700 dark:text-gray-300">{{ $event->date }}  {{ $event->name }}</p>
+                                        <p class="text-gray-700 dark:text-gray-300">{{ $event->name }}</p>
                                     </a>
                                 </li>
                             @endforeach

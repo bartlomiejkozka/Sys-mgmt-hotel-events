@@ -12,34 +12,8 @@ class NotificationController extends Controller
 {
     public function index(): View
     {
-        $dummyNotifications = [
-            new Notification([
-                'title' => 'New Event Created',
-                'body' => 'A new event titled "Tech Conference 2025" has been created. Join us for exciting sessions on the latest technologies!',
-            ]),
-
-            new Notification([
-                'title' => 'Reservation Confirmed',
-                'body' => 'Your reservation for the "Tech Conference 2025" event has been confirmed. We look forward to seeing you there!',
-            ]),
-
-            new Notification([
-                'title' => 'Event Reminder',
-                'body' => 'Reminder: The "Tech Conference 2025" event is tomorrow. Don\'t forget to attend and enjoy the sessions!',
-            ]),
-
-            new Notification([
-                'title' => 'Event Fully Booked',
-                'body' => 'The "Tech Conference 2025" event has reached its maximum number of participants. Unfortunately, you can no longer make a reservation.',
-            ]),
-
-            new Notification([
-                'title' => 'Event Cancelled',
-                'body' => 'We regret to inform you that the "Tech Conference 2025" event has been cancelled due to unforeseen circumstances.',
-            ])
-        ];
-
-        return view('notifications.index')->with('notifications', Notification::all());
+        $notifications = Notification::orderBy('created_at', 'desc')->get(); // Sortuj najnowsze na górze
+        return view('notifications.index')->with('notifications', $notifications);
     }
 
     public function create(): View

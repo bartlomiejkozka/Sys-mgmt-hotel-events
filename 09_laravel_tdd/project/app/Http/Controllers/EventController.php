@@ -14,8 +14,15 @@ class EventController extends Controller
 {
     public function index(): View
     {
-        return view('events.index')->with('events', Event::all());
+
+        $events = Event::where('event_date', '>=', now())
+        ->orderBy('event_date', 'asc')
+        ->get();
+
+        return view('events.index')->with('events', $events);
     }
+
+
 
     //AdminOnly
     public function create(): View

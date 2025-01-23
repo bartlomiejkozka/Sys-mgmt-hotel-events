@@ -17,7 +17,7 @@
                                 <p class="text-gray-700 dark:text-gray-300"><strong>Opis:</strong> {{ $event->description }}</p>
                                 <p class="text-gray-700 dark:text-gray-300"><strong>Lokalizacja:</strong> {{ $event->location }}</p>
                                 <p class="text-gray-700 dark:text-gray-300"><strong>Data:</strong> {{ $event->event_date }}</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Czas:</strong> {{ $event->event_time }}</p>
+                                <p class="text-gray-700 dark:text-gray-300"><strong>Godzina:</strong> {{ $event->event_time }}</p>
                                 <p class="text-gray-700 dark:text-gray-300"><strong>Maksymalna ilość uczestników:</strong> {{ $event->max_participants }}</p>
 
                                 <div class="mt-4">

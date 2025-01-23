@@ -11,13 +11,13 @@
                     <!-- All events with all their attributes -->
                     <div class="flex flex-col items-start gap-6 overflow-hidden rounded-xl bg-white p-6 shadow-2xl ring-1 ring-white/[0.1] transition-all duration-300 transform hover:scale-102 hover:ring-[#FF2D20] focus:outline-none focus-visible:ring-[#FF2D20] lg:p-10 lg:pb-10 dark:bg-zinc-800 dark:ring-zinc-700 dark:hover:ring-[#FF2D20] dark:text-white">
                         <div class="space-y-6">
-                            @foreach($events as $event)
+                            @foreach($events->where('event_date', '>=', now()) as $event)
                                 <div class="border-b pb-6">
                                     <div class="font-bold text-xl mb-2 text-[#FF2D20] hover:text-[#FF6B3E] transition-colors duration-200">{{ $event->name }}</div>
                                     <p class="text-gray-700 dark:text-gray-300"><strong>Opis:</strong> {{ $event->description }}</p>
                                     <p class="text-gray-700 dark:text-gray-300"><strong>Lokalizacja:</strong> {{ $event->location }}</p>
                                     <p class="text-gray-700 dark:text-gray-300"><strong>Data:</strong> {{ $event->event_date }}</p>
-                                    <p class="text-gray-700 dark:text-gray-300"><strong>Czas:</strong> {{ $event->event_time }}</p>
+                                    <p class="text-gray-700 dark:text-gray-300"><strong>Godzina:</strong> {{ $event->event_time }}</p>
                                     <p class="text-gray-700 dark:text-gray-300"><strong>Maksymalna ilość uczestników:</strong> {{ $event->max_participants }}</p>
                                     <!-- Edit and Delete Buttons -->
                                     <div class="flex">
@@ -30,6 +30,7 @@
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
 
                         <!-- Create New Event Button -->
