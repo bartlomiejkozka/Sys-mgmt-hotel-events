@@ -14,11 +14,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [UserController::class, 'home'])->name('home');
-
 Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('/home', [UserController::class, 'home'])->name('home')->middleware(['auth', 'verified']);
 
 // Trasa do wydarzeń, widok listy wydarzeń
 Route::get('/events', [EventController::class, 'events'])->name('events.index');
@@ -44,11 +44,6 @@ Route::get('/notifications', [NotificationController::class, 'index'])->name('no
 
 // Trasa do opinii (jeśli masz jakąś logikę na ten temat)
 Route::get('/opinions', [UserController::class, 'opinions'])->name('opinions');
-
-// Trasa do dashboardu użytkownika
-Route::get('/home', function () {
-    return view('user.home');
-})->middleware(['auth', 'verified'])->name('home');
 
 // Trasy związane z profilem użytkownika
 Route::middleware('auth')->group(function () {

@@ -15,6 +15,8 @@ class UserController extends Controller
     {
         $reservations = Reservation::where('user_id', Auth::id())
             ->join('events', 'reservations.event_id', '=', 'events.id')
+            ->select('reservations.*') // Pobiera tylko dane z tabeli 'reservations'
+            ->with('event') // Ładuje szczegóły wydarzenia
             ->get();
 
         return view('user.home', compact('reservations'));
