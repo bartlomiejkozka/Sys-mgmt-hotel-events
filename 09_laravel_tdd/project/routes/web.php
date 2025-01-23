@@ -69,11 +69,16 @@ Route::middleware([AdminOnly::class])->group(function () {
 
     Route::resource('admin/notifications', NotificationControllerAdmin::class);
 
-    Route::resource('admin/reports', ReportController::class);
+
 
     //Route::resource('admin/reservations', ReservationController::class);
     Route::delete('/reservations/{user}/{event}', [ReservationController::class, 'destroy'])
         ->name('reservations.destroy');
+
+    Route::get('/reports/getReviews', [ReportController::class, 'getReviews'])
+        ->name('reports.getReviews');
+
+    Route::resource('admin/reports', ReportController::class);
 
 });
 

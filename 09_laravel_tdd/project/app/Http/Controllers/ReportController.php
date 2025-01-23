@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Event;
@@ -16,4 +17,10 @@ class ReportController extends Controller
             ->get());
     }
 
+    public function getReviews(Event $event): View
+    {
+        $reviews = Review::where('event_id', $event->id)->get();
+
+        return view('report.show')->with('reviews', $reviews);
+    }
 }
