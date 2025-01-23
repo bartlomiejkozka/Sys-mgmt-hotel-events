@@ -28,7 +28,7 @@ class Test03_OpinionCest
         $I->fillField('Write a comment...', 'Wooooow');
         $I->selectOption('#event_id', 'Music Festival 2025');
         $I->selectOption('#rating', '5');
-        $I->click('Post Comment');
+        $I->click('button.ms-3');
         $I->see('Rating: 5/5');
     }
 }
