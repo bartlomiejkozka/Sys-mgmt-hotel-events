@@ -28,6 +28,11 @@ class NotificationControllerAdmin extends Controller
         return redirect()->route('notifications.index', $notification);
     }
 
+    public function notificationsForUser(){
+        $notifications = Notification::get();
+        return view('user.notifications', compact('notifications'));
+    }
+
     public function show(Notification $notification): View
     {
         return view('notifications.show')->with('notification', $notification);

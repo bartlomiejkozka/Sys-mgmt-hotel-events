@@ -44,7 +44,7 @@ Route::delete('/reservation/{id}/cancel', [EventController::class, 'cancel'])->n
 
 
 // Trasa do powiadomień
-Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+Route::get('/notifications', [NotificationControllerAdmin::class, 'notificationsForUser'])->name('notifications');
 
 // Trasa do opinii (jeśli masz jakąś logikę na ten temat)
 Route::get('/opinions', [UserController::class, 'opinions'])->name('opinions');
