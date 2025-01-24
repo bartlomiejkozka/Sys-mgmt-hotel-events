@@ -16,31 +16,31 @@ class Test04_WelcomeAdminCest
 
         $I->wantTo('See all text on Admin page');
 
-        $I->see('Welcome Admin', 'h2');
+        $I->see('Panel Administracyjny');
 
-        $I->see('Upcoming Events', 'h3');
+        $I->see('Najbliższe wydarzenia');
 
         $I->wantTo('Check all buttons');
 
-        $I->waitForNextPage(fn () => $I->click('Create new event'));
+        $I->waitForNextPage(fn () => $I->click('Utwórz nowe wydarzenie'));
 
         $I->seeCurrentUrlEquals('/admin/events/create');
 
         $I->amOnPage('/admin');
 
-        $I->waitForNextPage(fn () => $I->click('See all events'));
+        $I->waitForNextPage(fn () => $I->click('Zobacz wszytkie wydarzenia'));
 
         $I->seeCurrentUrlEquals('/admin/events');
 
         $I->amOnPage('/admin');
 
-        $I->waitForNextPage(fn () => $I->click('Notifications'));
+        $I->waitForNextPage(fn () => $I->click('Powiadomienia'));
 
         $I->seeCurrentUrlEquals('/admin/notifications');
 
         $I->amOnPage('/admin');
 
-        $I->waitForNextPage(fn () => $I->click('Reports'));
+        $I->waitForNextPage(fn () => $I->click('Raporty'));
 
         $I->seeCurrentUrlEquals('/admin/reports');
     }
