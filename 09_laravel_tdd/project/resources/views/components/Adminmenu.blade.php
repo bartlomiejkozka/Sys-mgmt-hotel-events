@@ -10,6 +10,7 @@
                     <a href="/admin/events" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Lista wydarzeń</a>
                     <a href="/admin/notifications" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Powiadomienia</a>
                     <a href="/admin/reports" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Raporty</a>
+                    <a href="/admin/profile" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Profil</a>
                 </div>
             </div>
             <form method="POST" action="{{ route('logout') }}">

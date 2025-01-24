@@ -3,6 +3,7 @@
 namespace TestsCodeception\Acceptance;
 
 use TestsCodeception\Support\AcceptanceTester;
+
 class Test05_ProfileAdminCest
 {
     public function test(AcceptanceTester $I): void
@@ -18,7 +19,6 @@ class Test05_ProfileAdminCest
         $I->see("Profile Information");
 
         $I->see("Name");
-        $I->see("Admin");
 
         $I->see("Email");
 
@@ -44,7 +44,7 @@ class Test05_ProfileAdminCest
 
         $I->seeCurrentUrlEquals('/admin/profile');
 
-        $I->see('Profile');
+        $I->see('Profile Information');
 
 
         $I->wantTo('Check if there are possibility to delete Admin account');

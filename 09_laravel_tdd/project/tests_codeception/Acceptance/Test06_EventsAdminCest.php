@@ -3,6 +3,7 @@
 namespace TestsCodeception\Acceptance;
 
 use TestsCodeception\Support\AcceptanceTester;
+
 class Test06_EventsAdminCest
 {
     public function test(AcceptanceTester $I): void
@@ -15,24 +16,26 @@ class Test06_EventsAdminCest
 
         $I->logInAdmin();
 
-        $I->see('Events', 'h2');
+        $I->see('Wszystkie wydarzenia');
 
-        $I->waitForNextPage(fn () => $I->click('Create Event'));
+        $I->amOnPage('/admin');
+
+        $I->waitForNextPage(fn () => $I->click('Utwórz nowe wydarzenie'));
 
         $I->seeCurrentUrlEquals('/admin/events/create');
 
         $I->wantTo('Create a Event');
 
-        $I->see('Create Event', 'h2');
+        $I->see('Utwórz nowe wydarzenie');
 
         $I->fillField('name', 'Test Event');
         $I->fillField('description', 'Test Event description');
         $I->fillField('location', 'Test Event location');
         $I->fillField('event_date', '10/03/2025');
-        $I->fillField('event_time', '10:00');
+        $I->fillField('event_time', '10:00am');
         $I->fillField('max_participants', '10');
 
-        $I->waitForNextPage(fn () => $I->click('Create'));
+        $I->waitForNextPage(fn () => $I->click('Zapisz wydarzenie'));
 
         /** @var string $id */
         $id = $I->grabFromDatabase('events', 'id', [
@@ -49,8 +52,8 @@ class Test06_EventsAdminCest
             'name' => 'Test Event',
             'description' => 'Test Event description',
             'location' => 'Test Event location',
-            'event_date' => '10/03/2025',
-            'event_time' => '10:00',
+            'event_date' => '2025-10-03',
+            'event_time' => '10:00:00',
             'max_participants' => '10'
         ]);
 
@@ -58,16 +61,16 @@ class Test06_EventsAdminCest
 
         $I->amOnPage('/admin/events/' . $id);
 
-        $I->waitForNextPage(fn () => $I->click('Edit'));
+        $I->waitForNextPage(fn () => $I->click('Edytuj wydarzenie'));
 
-        $I->seeCurrentUrlEquals('/books/' . $id . '/edit');
-        $I->see('Editing an event', 'h2');
+        $I->seeCurrentUrlEquals('/admin/events/' . $id . '/edit');
+        $I->see('Edytuj wydarzenie');
 
 
         $I->fillField('name', 'Test Event NEW');
         $I->fillField('description', 'Test Event description NEW');
 
-        $I->waitForNextPage(fn () => $I->click('Save'));
+        $I->waitForNextPage(fn () => $I->click('Zapisz wydarzenie'));
 
         $I->seeCurrentUrlEquals('/admin/events/' . $id);
 
@@ -75,8 +78,8 @@ class Test06_EventsAdminCest
             'name' => 'Test Event',
             'description' => 'Test Event description',
             'location' => 'Test Event location',
-            'event_date' => '10/03/2025',
-            'event_time' => '10:00',
+            'event_date' => '2025-10-03',
+            'event_time' => '10:00:00',
             'max_participants' => '10'
         ]);
 
@@ -84,8 +87,8 @@ class Test06_EventsAdminCest
             'name' => 'Test Event NEW',
             'description' => 'Test Event description NEW',
             'location' => 'Test Event location',
-            'event_date' => '10/03/2025',
-            'event_time' => '10:00',
+            'event_date' => '2025-10-03',
+            'event_time' => '10:00:00',
             'max_participants' => '10'
         ]);
 
@@ -93,16 +96,18 @@ class Test06_EventsAdminCest
 
         $I->amOnPage('/admin/events/' . $id);
 
-        $I->waitForNextPage(fn () => $I->click('Delete'));
+        $I->click('Usuń wydarzenie');
 
-        $I->seeCurrentUrlEquals('/events');
+        $I->acceptPopup();
+
+        $I->seeCurrentUrlEquals('/admin/events');
 
         $I->dontSeeInDatabase('events', [
             'name' => 'Test Event NEW',
             'description' => 'Test Event description NEW',
             'location' => 'Test Event location',
-            'event_date' => '10/03/2025',
-            'event_time' => '10:00',
+            'event_date' => '2025-10-03',
+            'event_time' => '10:00:00',
             'max_participants' => '10'
         ]);
     }

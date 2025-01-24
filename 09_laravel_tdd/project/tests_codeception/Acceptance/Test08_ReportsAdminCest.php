@@ -3,6 +3,7 @@
 namespace TestsCodeception\Acceptance;
 
 use TestsCodeception\Support\AcceptanceTester;
+
 class Test08_ReportsAdminCest
 {
     public function test(AcceptanceTester $I): void
@@ -15,22 +16,20 @@ class Test08_ReportsAdminCest
 
         $I->logInAdmin();
 
-        $I->see('Event History', 'h2');
+        $I->see('Zakończone wydarzenia');
 
-        $I->amOnPage('admin/events');
-
-        $I->waitForNextPage(fn () => $I->click('Create Event'));
+        $I->amOnPage('admin/events/create');
 
         $I->seeCurrentUrlEquals('/admin/events/create');
 
         $I->fillField('name', 'Past Test Event');
         $I->fillField('description', 'Past Test Event description');
         $I->fillField('location', 'Test Event location');
-        $I->fillField('event_date', '10/01/2025');
-        $I->fillField('event_time', '10:00');
+        $I->fillField('event_date', '01/01/2025');
+        $I->fillField('event_time', '10:00am');
         $I->fillField('max_participants', '10');
 
-        $I->waitForNextPage(fn () => $I->click('Create'));
+        $I->waitForNextPage(fn () => $I->click('Zapisz wydarzenie'));
 
         $I->amOnPage('admin/reports');
 

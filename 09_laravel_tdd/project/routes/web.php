@@ -75,9 +75,6 @@ Route::middleware([AdminOnly::class])->group(function () {
     Route::delete('/reservations/{user}/{event}', [ReservationController::class, 'destroy'])
         ->name('reservations.destroy');
 
-    Route::get('/reports/getReviews', [ReportController::class, 'getReviews'])
-        ->name('reports.getReviews');
-
     Route::resource('admin/reports', ReportController::class);
 
 });

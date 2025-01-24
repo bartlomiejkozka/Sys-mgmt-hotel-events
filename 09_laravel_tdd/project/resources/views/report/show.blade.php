@@ -13,13 +13,6 @@
                         <div class="space-y-6">
 
                             <div class="border-b pb-6">
-                                @foreach($reviews as $report)
-                                <?php echo $reviews ?>
-                                    <div class="border-b pb-6">
-                                        <p class="text-gray-700 dark:text-gray-300"><strong>comment:</strong> {{ $report->rating }}</p>
-                                        <p class="text-gray-700 dark:text-gray-300"><strong>rate:</strong> {{ $event->comment }}</p>
-                                    </div>
-                                @endforeach
                             </div>
 
                         </div>

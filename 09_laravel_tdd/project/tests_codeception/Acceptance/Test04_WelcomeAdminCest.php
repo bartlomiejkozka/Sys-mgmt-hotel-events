@@ -28,7 +28,7 @@ class Test04_WelcomeAdminCest
 
         $I->amOnPage('/admin');
 
-        $I->waitForNextPage(fn () => $I->click('Zobacz wszytkie wydarzenia'));
+        $I->waitForNextPage(fn () => $I->click('Zobacz wszystkie wydarzenia'));
 
         $I->seeCurrentUrlEquals('/admin/events');
 

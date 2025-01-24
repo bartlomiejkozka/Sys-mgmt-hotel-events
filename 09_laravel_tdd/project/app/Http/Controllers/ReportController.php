@@ -17,7 +17,7 @@ class ReportController extends Controller
             ->get());
     }
 
-    public function getReviews(Event $event): View
+    public function show(Event $event): View
     {
         $reviews = Review::where('event_id', $event->id)->get();
 

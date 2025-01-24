@@ -24,4 +24,3 @@ class AdminMenu extends Component
         return view('components.Adminmenu');
     }
 }
-

@@ -29,10 +29,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if(auth()->user()->name == "Admin" || auth()->user()->name == "Admin1" || auth()->user()->name == "Admin2")
+        if (auth()->user()->name == "Admin" || auth()->user()->name == "Admin1" || auth()->user()->name == "Admin2") {
             return redirect()->intended('/admin');
-        else
+        } else {
             return redirect()->intended(route('home', absolute: false));
+        }
     }
 
     /**

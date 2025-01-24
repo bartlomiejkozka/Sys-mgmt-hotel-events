@@ -30,7 +30,7 @@
                                             Pokaż wydarzenie
                                         </a>
 
-                                        <a href="{{ route('reports.getReviews', $event->id) }}" class="inline-block px-6 py-2 text-white bg-yellow-400 rounded-lg shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
+                                        <a href="{{ route('reports.show', $event->id) }}" class="inline-block px-6 py-2 text-white bg-yellow-400 rounded-lg shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
                                             Pokaż opinie
                                         </a>
 
