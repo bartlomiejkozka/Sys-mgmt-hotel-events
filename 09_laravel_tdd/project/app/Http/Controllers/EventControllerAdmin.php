@@ -51,6 +51,7 @@ class EventControllerAdmin extends Controller
     //AdminOnly
     public function edit(Event $event): View
     {
+        echo $event;
         return view('events.edit')->with('event', $event);
     }
 

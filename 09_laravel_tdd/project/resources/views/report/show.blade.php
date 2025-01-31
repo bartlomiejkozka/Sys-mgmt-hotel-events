@@ -13,7 +13,20 @@
                         <div class="space-y-6">
 
                             <div class="border-b pb-6">
+                                @foreach($reviews as $review)
+                                    <article class="p-6 mb-3 ml-6 lg:ml-12 text-base bg-white rounded-lg dark:bg-gray-900 border-2">
+                                        <footer class="flex justify-between items-center mb-2">
+                                            <div class="flex items-center">
+                                                <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">{{ $review->user->name }}</p>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="{{ $review->created_at }}" title="{{ $review->created_at }}">{{ $review->created_at->format('M d, Y') }}</time></p>
+                                            </div>
+                                        </footer>
+                                        <p class="text-gray-500 dark:text-gray-400">{{ $review->comment }}</p>
+                                        <p class="text-gray-500 dark:text-gray-400">Rating: {{ $review->rating }} / 5</p>
+                                    </article>
+                                @endforeach
                             </div>
+
 
                         </div>
 
