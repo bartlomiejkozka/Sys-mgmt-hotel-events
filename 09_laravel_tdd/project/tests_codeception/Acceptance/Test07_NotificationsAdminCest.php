@@ -53,7 +53,7 @@ class Test07_NotificationsAdminCest
 
         $I->acceptPopup();
 
-        $I->seeCurrentUrlEquals('admin/notifications');
+        $I->seeCurrentUrlEquals('/admin/notifications');
 
         $I->dontseeInDatabase('notifications', [
             'title' => 'Test Notification',

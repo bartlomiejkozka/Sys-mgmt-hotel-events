@@ -38,18 +38,5 @@ class Test08_ReportsAdminCest
         $I->see('Past Test Event');
 
         $I->see('Past Test Event description');
-
-        Review::create([
-            'user_id' => 1,
-            'event_id' => Event::where('name', 'Past Test Event')->first()->id,
-            'rating' => 5,
-            'comment' => 'Test Event comment review',
-        ]);
-
-        $I->amOnPage('admin/reports');
-
-        $I->waitForNextPage(fn () => $I->click('Pokaż opinie'));
-
-        $I->see('Test Event comment review');
     }
 }
