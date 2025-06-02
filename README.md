@@ -1,4 +1,4 @@
-### Hotel Events Management System build base on laravel framework
+### Hotel Events Management System built based on Laravel framework
 
 ---
 
