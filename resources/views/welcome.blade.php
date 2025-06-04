@@ -44,7 +44,7 @@
     </main>
 
     <footer class="text-sm text-gray-300 text-center py-4 bg-gray-900">
-        &copy Copyright Jakub Milasz Kamil Derenda Bartłomiej Kózka Tomasz Drozd
+        &copy Copyright Bartłomiej Kózka Gerard Miętek Bartosz Pietrucha 2024. All rights reserved.
     </footer>
 </div>
 </body>

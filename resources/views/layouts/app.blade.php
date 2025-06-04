@@ -16,7 +16,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="bg-gray-100">
+        <div class="bg-white dark:bg-black">
 
             <!-- Page Heading -->
             @isset($header)

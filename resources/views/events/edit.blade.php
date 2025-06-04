@@ -1,4 +1,5 @@
 <x-app-layout>
+    <div class="min-h-screen bg-white dark:bg-black transition-colors duration-300">
     <h1 class="text-center mt-6 text-3xl">
         <span class="inline-flex items-center gap-2 font-bold text-black dark:text-white hover:text-[#FF6B3E] transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FF2D20">
@@ -62,6 +63,7 @@
                 </button>
             </div>
         </form>
+    </div>
     </div>
 
     <script>

@@ -1,9 +1,9 @@
 <x-app-layout>
-    <div class="bg-gradient-to-r from-gray-100 to-gray-200 text-black/70 dark:bg-zinc-900 dark:text-white/80 mt-4 overflow-scroll">
+    <div class="min-h-screen bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 mt-4">
         <div class="relative min-h-[70dvh] flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <main class="flex justify-center">
-                    <h1 class="text-5xl font-extrabold text-black mb-12 mt-4 text-center transition-all duration-300 transform hover:text-[#FF6B3E]">
+                    <h1 class="text-5xl font-extrabold text-black dark:text-white mb-12 mt-4 text-center transition-all duration-300 transform hover:text-[#FF6B3E]">
                         Wszystkie powiadomienia
                     </h1>
                 </main>

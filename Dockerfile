@@ -27,4 +27,10 @@ COPY . /var/www/
 
 WORKDIR /var/www
 
+# Fix ownership of working directory
+# RUN chown -R $user:$user /var/www
+
+# Make Git trust this directory (avoids "dubious ownership" warnings)
+# RUN git config --global --add safe.directory /var/www
+
 USER $user

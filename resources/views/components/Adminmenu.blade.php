@@ -1,8 +1,8 @@
-<nav class="bg-gray-800">
+<nav class="bg-gradient-to-r from-[#FFC371] to-[#FF5F6D] text-white shadow-md">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
             <div class="flex shrink-0 items-center">
-                <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+                <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg?color=indigo&shade=500" alt="Your Company">
             </div>
             <div class="hidden sm:block">
                 <div class="flex space-x-4 justify-center">
@@ -24,5 +24,4 @@
         </div>
     </div>
 </nav>
-
 
