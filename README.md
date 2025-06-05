@@ -23,7 +23,7 @@
      ````
 
 Than app is ready to use, you can type in your browser:
-    ```bash
+    ```
     http://localhost:8000/
     ```
 And Enjoy Exploring :)
